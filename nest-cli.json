@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": false
+  },
+  "projects": {
+    "config": {
+      "type": "library",
+      "root": "libs/config",
+      "entryFile": "index",
+      "sourceRoot": "libs/config/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/config/tsconfig.lib.json"
+      }
+    },
+    "example-plugin": {
+      "type": "library",
+      "root": "libs/example-plugin",
+      "entryFile": "index",
+      "sourceRoot": "libs/example-plugin/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/example-plugin/tsconfig.lib.json"
+      }
+    },
+    "models": {
+      "type": "library",
+      "root": "libs/models",
+      "entryFile": "index",
+      "sourceRoot": "libs/models/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/models/tsconfig.lib.json"
+      }
+    },
+    "support": {
+      "type": "library",
+      "root": "libs/support",
+      "entryFile": "index",
+      "sourceRoot": "libs/support/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/support/tsconfig.lib.json"
+      }
+    },
+    "utility": {
+      "type": "library",
+      "root": "libs/utility",
+      "entryFile": "index",
+      "sourceRoot": "libs/utility/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/utility/tsconfig.lib.json"
+      }
+    },
+    "interfaces": {
+      "type": "library",
+      "root": "libs/interfaces",
+      "entryFile": "index",
+      "sourceRoot": "libs/interfaces/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/interfaces/tsconfig.lib.json"
+      }
+    }
+  }
+}

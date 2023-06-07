@@ -1,0 +1,5 @@
+{
+	"plugins": [
+		"./dist/libs/example-plugin"
+	]
+}

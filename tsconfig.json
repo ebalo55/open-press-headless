@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES6",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@open-press/config": [
+        "libs/config/src"
+      ],
+      "@open-press/config/*": [
+        "libs/config/src/*"
+      ],
+      "@open-press/example-plugin": [
+        "libs/example-plugin/src"
+      ],
+      "@open-press/example-plugin/*": [
+        "libs/example-plugin/src/*"
+      ],
+      "@open-press/models": [
+        "libs/models/src"
+      ],
+      "@open-press/models/*": [
+        "libs/models/src/*"
+      ],
+      "@open-press/support": [
+        "libs/support/src"
+      ],
+      "@open-press/support/*": [
+        "libs/support/src/*"
+      ],
+      "@open-press/utility": [
+        "libs/utility/src"
+      ],
+      "@open-press/utility/*": [
+        "libs/utility/src/*"
+      ],
+      "@open-press/backend-interfaces": [
+        "libs/interfaces/src"
+      ],
+      "@open-press/backend-interfaces/*": [
+        "libs/interfaces/src/*"
+      ]
+    }
+  }
+}
