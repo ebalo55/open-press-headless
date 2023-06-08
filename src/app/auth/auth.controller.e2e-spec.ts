@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { INestApplication, ValidationPipe } from "@nestjs/common";
+import { INestApplication } from "@nestjs/common";
 import { getConnectionToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { DATABASE_CONNECTIONS } from "@open-press/config";
@@ -35,15 +35,6 @@ describe("AuthController", () => {
 		user_service = module.get<UserService>(UserService);
 
 		app = module.createNestApplication();
-		app.useGlobalPipes(
-			new ValidationPipe({
-				forbidNonWhitelisted: true,
-				forbidUnknownValues: true,
-				stopAtFirstError: true,
-				whitelist: true,
-				transform: true,
-			})
-		);
 		await app.listen(3000);
 		url = await app.getUrl();
 	});
