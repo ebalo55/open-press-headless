@@ -1,75 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# OpenPress
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+## Introducing OpenPress: The Overpowered and Extensible Open-Source Solution
 
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+OpenPress is an ambitious open-source project designed to revolutionize the world of website content management.
+Built entirely in TypeScript, OpenPress aims to surpass the capabilities of its predecessors and emerge as the ultimate
+solution for creating and managing powerful websites.
+With an unwavering focus on security and extensibility, OpenPress aims to empower developers and content creators alike,
+offering them unparalleled control over their online presence.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Key Features
 
-## Description
+1) **Unleash the Power of TypeScript**<br>
+   OpenPress harnesses the full potential of TypeScript, providing a robust and statically-typed foundation for building
+   exceptional websites.
+   TypeScript's strong typing and modern language features enable developers to write cleaner, safer, and more
+   maintainable code.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+2) **Uncompromising Security**<br>
+   Security is at the forefront of OpenPress's design philosophy.
+   Every line of code is meticulously crafted to ensure the highest level of protection against vulnerabilities and
+   malicious attacks.
+   OpenPress adopts industry best practices for authentication, data encryption, and security hardening, empowering
+   users to build secure websites with confidence.
 
-## Installation
+3) **Extensibility Redefined**<br>
+   OpenPress takes extensibility to new heights, offering an expansive plugin architecture that allows developers to
+   seamlessly extend and customize every aspect of their websites.
+   Whether it's adding new features, modifying existing functionality, or integrating with third-party services,
+   OpenPress provides an intuitive and flexible framework for limitless customization.
 
-```bash
-$ pnpm install
-```
+OpenPress is an open-source project that thrives on community participation and collaboration. Whether you are a
+developer looking to contribute code, a designer seeking to enhance the user experience, or an individual eager to test
+and provide feedback, OpenPress welcomes your involvement. Together, let's redefine the possibilities of website
+creation and empower everyone to build exceptional online experiences.
 
-## Running the app
+> **NOTE**<br>
+> OpenPress is currently under development, and its ambitious goals are driving the team to create a cutting-edge
+> solution, this means that it is currently unstable and that the underground API may change without prior
+> communication. 
+> Stay tuned for updates, releases, and opportunities to get involved in shaping the future of content
+> management with OpenPress.
 
-```bash
-# development
-$ pnpm run start
+## Understand this workspace
 
-# watch mode
-$ pnpm run start:dev
+This monorepo workspace is powered by [Nx](https://nx.dev/).
 
-# production mode
-$ pnpm run start:prod
-```
+Run `nx graph` to see a diagram of the dependencies of the projects.
 
-## Test
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If
-you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
