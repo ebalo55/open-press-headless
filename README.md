@@ -41,9 +41,3 @@ creation and empower everyone to build exceptional online experiences.
 > Stay tuned for updates, releases, and opportunities to get involved in shaping the future of content
 > management with OpenPress.
 
-## Understand this workspace
-
-This monorepo workspace is powered by [Nx](https://nx.dev/).
-
-Run `nx graph` to see a diagram of the dependencies of the projects.
-
