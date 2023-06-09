@@ -51,5 +51,6 @@ import { TemplateModule } from "./template/template.module";
 			useClass: JwtAuthGuard,
 		},
 	],
+	exports: [AuthModule, TemplateModule],
 })
 export class AppModule {}
