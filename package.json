@@ -8,7 +8,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "nest build",
-    "build-example-plugin": "nest build example-plugin",
+    "build:example-plugin": "nest build example-plugin",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

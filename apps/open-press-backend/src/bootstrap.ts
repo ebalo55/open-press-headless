@@ -37,8 +37,6 @@ async function readConfig(config_filename: string) {
 async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) {
 	const config_filename = "open-press.json";
 	const config = await readConfig(config_filename);
-	console.log("config", config);
-	console.log("process.cwd()", process.cwd());
 
 	const plugins = await Promise.all(
 		config.plugins.map((plugin_name) => {
@@ -50,8 +48,11 @@ async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) 
 		})
 	);
 
-	const plugin_modules = plugins.map((plugin) => plugin.default).filter(Boolean);
-	console.log("plugin_modules", plugin_modules);
+	const plugin_modules = plugins
+		.map((plugin) => {
+			return plugin.default;
+		})
+		.filter(Boolean);
 	imports.push(...plugin_modules);
 }
 
