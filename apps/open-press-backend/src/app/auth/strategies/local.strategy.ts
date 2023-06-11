@@ -65,7 +65,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 				password,
 			});
 
-			throw new UnauthorizedException();
+			throw new UnauthorizedException({
+				error: "Email or password do not match",
+			});
 		}
 
 		this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_success).dispatch(this, {

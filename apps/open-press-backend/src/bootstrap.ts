@@ -63,6 +63,16 @@ async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) 
 export async function bootstrap() {
 	Logger.log("🚀 Bootstrapping application...");
 	const app = await NestFactory.create(await makeRootModule(AppModule));
+	app.enableCors({
+		credentials: true,
+		origin: "*",
+		methods: "*",
+		allowedHeaders: "*",
+		preflightContinue: false,
+		exposedHeaders: "*",
+		optionsSuccessStatus: 201,
+		maxAge: 60000,
+	});
 
 	const port = process.env.PORT || 3000;
 	await app.listen(port);

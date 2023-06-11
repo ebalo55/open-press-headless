@@ -12,7 +12,7 @@ export const CreateUserDTOValidationSchema = z.object({
 	/**
 	 * @description The email of the user.
 	 */
-	email: z.string().email(),
+	email: z.string().email().nonempty(),
 
 	/**
 	 * @description The password of the user.

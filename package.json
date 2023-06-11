@@ -14,7 +14,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/open-press-backend/main",
-    "start-cli": "nest start cli -- seed",
+    "start:cli": "nest start cli -- seed",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --forceExit",
     "test:watch": "jest --watch",
