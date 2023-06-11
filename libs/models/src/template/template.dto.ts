@@ -1,5 +1,4 @@
 import { MongoseId } from "@open-press/backend-interfaces";
-import { Exclude } from "class-transformer";
 import { DateTime } from "luxon";
 import { z } from "zod";
 
@@ -29,11 +28,7 @@ export class TemplateEntity {
 	name!: string;
 	html!: string;
 	css!: string;
-
-	@Exclude()
 	created_at!: DateTime;
-
-	@Exclude()
 	updated_at!: DateTime;
 
 	constructor(template: Partial<TemplateEntity & MongoseId>) {
