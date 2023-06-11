@@ -66,7 +66,7 @@ export class AuthController {
 	@UseGuards(LocalAuthGuard)
 	@Post("login")
 	async login(@Req() request: Request, @Body() login_request: LoginRequestDto) {
-		validate(login_request, LoginRequestValidationSchema);
+		login_request = validate(login_request, LoginRequestValidationSchema);
 
 		this._events.get(AUTH_CONTROLLER_EVENTS.before_validation).dispatch(this, { request });
 
