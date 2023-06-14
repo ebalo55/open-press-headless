@@ -1,0 +1,17 @@
+{
+  "$schema": "apps/cli/src/seed/seed.schema.json",
+  "items": [
+    {
+      "type": "user",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password"
+    },
+    {
+      "type": "template",
+      "name": "Home",
+      "html": "<h1>Home</h1>",
+      "css": "h1 { color: red; }"
+    }
+  ]
+}

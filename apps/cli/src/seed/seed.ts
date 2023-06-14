@@ -1,17 +1,28 @@
-import { UserDocument, UserService } from "@open-press/models";
+import { TemplateService, UserService } from "@open-press/models";
 import * as Listr from "listr";
+import { ListrTaskResult } from "listr";
 import { Command, CommandRunner, Option } from "nest-commander";
 import { z } from "zod";
 import { makeLogger } from "../logger";
+import { readFile } from "node:fs/promises";
+import { Observable, Subscriber } from "rxjs";
+import { LogEntry } from "winston";
 
 interface SeedParams {
-	email: string;
-	name: string;
-	password: string;
+	seed: string;
+}
+
+interface SeedFile {
+	$schema: string;
+	items: {
+		type: string;
+		[x: string]: any;
+	}[];
 }
 
 interface TasksContext extends SeedParams {
-	user?: UserDocument | null;
+	raw_seed?: string;
+	parsed_seed?: SeedFile;
 }
 
 @Command({
@@ -20,65 +31,26 @@ interface TasksContext extends SeedParams {
 })
 export class Seed extends CommandRunner {
 	private logger: ReturnType<typeof makeLogger>;
+	private ending_logs: LogEntry[] = [];
 
-	constructor(private readonly user_service: UserService) {
+	constructor(private readonly user_service: UserService, private readonly template_service: TemplateService) {
 		super();
 		this.logger = makeLogger("Seed");
 	}
 
 	/**
-	 * Parse the email option
-	 * @param {string} email
+	 * Parse the seed option
 	 * @returns {string}
+	 * @param seed_file
 	 */
 	@Option({
-		flags: "-e, --email <email>",
-		description: "Email of the user",
+		flags: "-s, --seed <seeder-file>",
+		description: "JSON file to seed the database with",
 		required: true,
-		defaultValue: "john.doe@example.com",
+		defaultValue: "open-press.seed.json",
 	})
-	public parseEmail(email: string) {
-		const result = z.string().email().safeParse(email);
-		if (result.success) {
-			return result.data;
-		}
-
-		throw new Error(result.error.message);
-	}
-
-	/**
-	 * Parse the name option
-	 * @param {string} name
-	 * @returns {string}
-	 */
-	@Option({
-		flags: "-n, --name <name>",
-		description: "Name of the user",
-		required: true,
-		defaultValue: "John Doe",
-	})
-	public parseName(name: string) {
-		const result = z.string().min(3).safeParse(name);
-		if (result.success) {
-			return result.data;
-		}
-
-		throw new Error(result.error.message);
-	}
-
-	/**
-	 * Parse the password option
-	 * @param {string} password
-	 * @returns {string}
-	 */
-	@Option({
-		flags: "-p, --password <password>",
-		description: "Password of the user",
-		required: true,
-		defaultValue: "password",
-	})
-	public parsePassword(password: string) {
-		const result = z.string().min(8).safeParse(password);
+	public parseSeedConfig(seed_file: string) {
+		const result = z.string().nonempty().safeParse(seed_file);
 		if (result.success) {
 			return result.data;
 		}
@@ -97,13 +69,125 @@ export class Seed extends CommandRunner {
 
 		const ctx = await this.buildTasks().run(options);
 
-		if (!ctx.user) {
-			this.logger.error("Failed to create user");
-			throw new Error("Failed to create user");
+		this.ending_logs.forEach((log) => {
+			this.logger.log(log);
+		});
+
+		this.logger.info("Seeding completed successfully");
+	}
+
+	/**
+	 * Seed templates
+	 * @param configuration - The configuration for the task
+	 * @private
+	 */
+	private async seedTemplates(configuration: { subscriber: Subscriber<any>; ctx: TasksContext; item: any }) {
+		const { subscriber, ctx, item } = configuration;
+
+		try {
+			const template = await this.template_service.findByName(item.name);
+
+			// If the user already exists, skip
+			if (template) {
+				subscriber.next(`Template '${item.name}' already exists, skipping.`);
+				this.ending_logs.push({
+					level: "warn",
+					message: `Template '${item.name}' already exists, skipped.,
+				});
+
+				return;
+			}
+		} catch (e: any) {
+			if (e.message === "Template not found.") {
+				const created_template = await this.template_service.create({
+					name: item.name,
+					html: item.html,
+					css: item.cs,
+				});
+
+				this.ending_logs.push({
+					level: "info",
+					message: `Created template '${created_template.name}' with id '${created_template.id}'.,
+				});
+
+				return;
+			}
+
+			throw e;
+		}
+	}
+
+	/**
+	 * Seed users
+	 * @param configuration - The configuration for the task
+	 * @private
+	 */
+	private async seedUsers(configuration: { subscriber: Subscriber<any>; ctx: TasksContext; item: any }) {
+		const { subscriber, ctx, item } = configuration;
+
+		try {
+			const user = await this.user_service.findByEmail(item.email);
+
+			// If the user already exists, skip
+			if (user) {
+				subscriber.next(`User '${item.email}' already exists, skipping.`);
+				this.ending_logs.push({
+					level: "warn",
+					message: `User '${item.email}' already exists, skipped.,
+				});
+
+				return;
+			}
+		} catch (e: any) {
+			if (e.message === "User not found") {
+				const created_user = await this.user_service.create({
+					email: item.email,
+					password: item.password,
+					name: item.nam,
+				});
+
+				this.ending_logs.push({
+					level: "info",
+					message: `Created user '${created_user.email}' with id '${created_user.id}'.,
+				});
+
+				return;
+			}
+
+			throw e;
+		}
+	}
+
+	/**
+	 * Seed the database
+	 * @param subscriber - The subscriber to send logs to
+	 * @param ctx - The tasks context
+	 * @private
+	 */
+	private async seed(subscriber: Subscriber<any>, ctx: TasksContext) {
+		const { parsed_seed } = ctx;
+		if (!parsed_seed) {
+			throw new Error("No seed file found");
 		}
 
-		this.logger.info(`Created user ${ctx.user.email} with id ${ctx.user.id}`);
-		this.logger.info("Seeding completed successfully");
+		const { items } = parsed_seed;
+
+		for (const [index, item] of items.entries()) {
+			subscriber.next(`Seeding ${item.type} at index ${index}`);
+			if (item.type === "template") {
+				await this.seedTemplates({
+					subscriber,
+					ctx,
+					ite,
+				});
+			} else if (item.type === "user") {
+				await this.seedUsers({
+					subscriber,
+					ctx,
+					ite,
+				});
+			}
+		}
 	}
 
 	/**
@@ -114,34 +198,38 @@ export class Seed extends CommandRunner {
 	private buildTasks() {
 		return new Listr<TasksContext>([
 			{
-				title: "Checking user existence",
+				title: "Checking seed file existence",
 				task: async (ctx, task) => {
-					try {
-						const admin = await this.user_service.findByEmail(ctx.email);
-						if (admin) {
-							task.skip("User already exists");
-							ctx.user = admin;
-						}
-					} catch (e) {
-						ctx.user = null;
-					}
-				},
+					const content = await readFile(ctx.seed, "utf-8");
+
+					ctx.raw_seed = content;
+				}
 			},
 			{
-				title: "Creating user",
-				skip: (ctx) => {
-					if (ctx.user) {
-						return "User already exists";
+				title: "Parsing seed file",
+				task: async (ctx, task) => {
+					if (!ctx.raw_seed) {
+						throw new Error("No seed file found");
 					}
-				},
-				task: async (ctx) => {
-					ctx.user = await this.user_service.create({
-						email: ctx.email,
-						password: ctx.password,
-						name: ctx.name,
-					});
-				},
+
+					ctx.parsed_seed = JSON.parse(ctx.raw_seed);
+				}
 			},
+			{
+				title: "Seeding",
+				task: (ctx, task) => {
+					return new Observable((subscriber) => {
+						this.seed(subscriber, ctx)
+							.then(() => {
+								subscriber.complete();
+							})
+							.catch((e) => {
+								console.error(e);
+								subscriber.error(e.message);
+							});
+					}) as unknown as ListrTaskResult<any>;
+				}
+			}
 		]);
 	}
 }

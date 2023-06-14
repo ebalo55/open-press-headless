@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "template"
+    },
+    "name": {
+      "type": "string"
+    },
+    "html": {
+      "type": "string"
+    },
+    "css": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "name",
+    "html",
+    "css"
+  ]
+}
