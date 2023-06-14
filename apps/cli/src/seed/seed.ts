@@ -1,8 +1,11 @@
 import { TemplateService, UserService } from "@open-press/models";
+import * as Listr from "listr";
+import { ListrTaskResult } from "listr";
 import { Command, CommandRunner, Option } from "nest-commander";
 import { z } from "zod";
 import { makeLogger } from "../logger";
-import { Subscriber } from "rxjs";
+import { readFile } from "node:fs/promises";
+import { Observable, Subscriber } from "rxjs";
 import { LogEntry } from "winston";
 
 interface SeedParams {
@@ -130,7 +133,7 @@ export class Seed extends CommandRunner {
 				subscriber.next(`User '${item.email}' already exists, skipping.`);
 				this.ending_logs.push({
 					level: "warn",
-					message: `User '${item.email}' already exists, skipped.,
+					message: `User '${item.email}' already exists, skipped.`,
 				});
 
 				return;
