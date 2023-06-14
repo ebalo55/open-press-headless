@@ -1,11 +1,8 @@
 import { TemplateService, UserService } from "@open-press/models";
-import * as Listr from "listr";
-import { ListrTaskResult } from "listr";
 import { Command, CommandRunner, Option } from "nest-commander";
 import { z } from "zod";
 import { makeLogger } from "../logger";
-import { readFile } from "node:fs/promises";
-import { Observable, Subscriber } from "rxjs";
+import { Subscriber } from "rxjs";
 import { LogEntry } from "winston";
 
 interface SeedParams {
@@ -92,7 +89,7 @@ export class Seed extends CommandRunner {
 				subscriber.next(`Template '${item.name}' already exists, skipping.`);
 				this.ending_logs.push({
 					level: "warn",
-					message: `Template '${item.name}' already exists, skipped.,
+					message: `Template '${item.name}' already exists, skipped.`,
 				});
 
 				return;
@@ -107,7 +104,7 @@ export class Seed extends CommandRunner {
 
 				this.ending_logs.push({
 					level: "info",
-					message: `Created template '${created_template.name}' with id '${created_template.id}'.,
+					message: `Created template '${created_template.name}' with id '${created_template.id}'.`,
 				});
 
 				return;
@@ -143,12 +140,12 @@ export class Seed extends CommandRunner {
 				const created_user = await this.user_service.create({
 					email: item.email,
 					password: item.password,
-					name: item.nam,
+					name: item.name,
 				});
 
 				this.ending_logs.push({
 					level: "info",
-					message: `Created user '${created_user.email}' with id '${created_user.id}'.,
+					message: `Created user '${created_user.email}' with id '${created_user.id}'.`,
 				});
 
 				return;
@@ -178,13 +175,13 @@ export class Seed extends CommandRunner {
 				await this.seedTemplates({
 					subscriber,
 					ctx,
-					ite,
+					item,
 				});
 			} else if (item.type === "user") {
 				await this.seedUsers({
 					subscriber,
 					ctx,
-					ite,
+					item,
 				});
 			}
 		}
@@ -203,7 +200,7 @@ export class Seed extends CommandRunner {
 					const content = await readFile(ctx.seed, "utf-8");
 
 					ctx.raw_seed = content;
-				}
+				},
 			},
 			{
 				title: "Parsing seed file",
@@ -213,7 +210,7 @@ export class Seed extends CommandRunner {
 					}
 
 					ctx.parsed_seed = JSON.parse(ctx.raw_seed);
-				}
+				},
 			},
 			{
 				title: "Seeding",
@@ -228,8 +225,8 @@ export class Seed extends CommandRunner {
 								subscriber.error(e.message);
 							});
 					}) as unknown as ListrTaskResult<any>;
-				}
-			}
+				},
+			},
 		]);
 	}
 }
