@@ -55,6 +55,7 @@
 		"@types/express": "^4.17.13",
 		"@types/jest": "29.5.2",
 		"@types/jsonwebtoken": "^9.0.2",
+		"@types/listr": "^0.14.4",
 		"@types/lodash": "^4.14.195",
 		"@types/luxon": "^3.3.0",
 		"@types/node": "20.3.0",
