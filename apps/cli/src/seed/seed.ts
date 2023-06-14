@@ -99,7 +99,7 @@ export class Seed extends CommandRunner {
 				const created_template = await this.template_service.create({
 					name: item.name,
 					html: item.html,
-					css: item.cs,
+					css: item.css,
 				});
 
 				this.ending_logs.push({
