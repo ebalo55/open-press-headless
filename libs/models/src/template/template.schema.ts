@@ -20,16 +20,28 @@ export class Template {
 	})
 	css!: string;
 
+	@Prop({
+		required: true,
+		type: Object,
+	})
+	project_data!: {
+		assets: any[];
+		styles: any[];
+		pages: any[];
+	};
+
 	/**
 	 * Template's creation date - autofilled when using TemplateService.
 	 * @type {DateTime}
 	 */
 	@Prop({
 		required: true,
-		default: DateTime.now(),
-		type: DateTime,
+		default: DateTime.now().toISO(),
+		type: String,
+		set: (value: string | DateTime): string =>
+			(value instanceof DateTime ? value.toISO() : DateTime.fromISO(value).toISO()) || "",
 	})
-	created_at!: DateTime;
+	created_at!: string | DateTime;
 
 	/**
 	 * Template's last update date - autofilled when using TemplateService.
@@ -37,10 +49,12 @@ export class Template {
 	 */
 	@Prop({
 		required: true,
-		default: DateTime.now(),
-		type: DateTime,
+		default: DateTime.now().toISO(),
+		type: String,
+		set: (value: string | DateTime): string =>
+			(value instanceof DateTime ? value.toISO() : DateTime.fromISO(value).toISO()) || "",
 	})
-	updated_at!: DateTime;
+	updated_at!: string | DateTime;
 }
 
 export const TemplateSchema = SchemaFactory.createForClass(Template);
