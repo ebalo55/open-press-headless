@@ -2,11 +2,11 @@ import { TemplateService, UserService } from "@open-press/models";
 import * as Listr from "listr";
 import { ListrTaskResult } from "listr";
 import { Command, CommandRunner, Option } from "nest-commander";
-import { z } from "zod";
-import { makeLogger } from "../logger";
 import { readFile } from "node:fs/promises";
 import { Observable, Subscriber } from "rxjs";
 import { LogEntry } from "winston";
+import { z } from "zod";
+import { makeLogger } from "../logger";
 
 interface SeedParams {
 	seed: string;
@@ -103,6 +103,8 @@ export class Seed extends CommandRunner {
 					name: item.name,
 					html: item.html,
 					css: item.css,
+					project_data:
+						typeof item.project_data === "string" ? JSON.parse(item.project_data) : item.project_data,
 				});
 
 				this.ending_logs.push({

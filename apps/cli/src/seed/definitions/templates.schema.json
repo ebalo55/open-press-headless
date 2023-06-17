@@ -3,22 +3,26 @@
   "additionalProperties": false,
   "properties": {
     "type": {
-      "const": "template"
+	    "const": "template"
     },
-    "name": {
-      "type": "string"
-    },
-    "html": {
-      "type": "string"
-    },
-    "css": {
-      "type": "string"
-    }
+	  "name": {
+		  "type": "string"
+	  },
+	  "html": {
+		  "type": "string"
+	  },
+	  "css": {
+		  "type": "string"
+	  },
+	  "project_data": {
+		  "type": "string"
+	  }
   },
   "required": [
-    "type",
-    "name",
-    "html",
-    "css"
+	  "type",
+	  "name",
+	  "html",
+	  "css",
+	  "project_data"
   ]
 }
