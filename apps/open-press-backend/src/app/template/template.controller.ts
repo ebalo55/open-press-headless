@@ -3,12 +3,15 @@ import {
 	CreateTemplateDTO,
 	CreateTemplateDTOValidationSchema,
 	TemplateEntity,
+	TemplateRenderingEntity,
 	TemplateService,
 	UpdateTemplateDTO,
 	UpdateTemplateDTOValidationSchema,
 } from "@open-press/models";
+import { PublicEndpoint } from "@open-press/support";
 import { MongoIdSchema, validate, validateMany } from "@open-press/utility";
 import { NonUniformEventList } from "strongly-typed-events";
+import { z } from "zod";
 import { TEMPLATE_CONTROLLER_EVENTS } from "./constants";
 import { TemplateControllerEvents } from "./types";
 
@@ -109,6 +112,22 @@ export class TemplateController {
 	}
 
 	/**
+	 * @description This method allows for the listening of the TEMPLATE_CONTROLLER_EVENTS.get_by_name_before event.
+	 */
+	get onBeforeGetByName() {
+		/* istanbul ignore next */
+		return this._events.get(TEMPLATE_CONTROLLER_EVENTS.get_by_name_before).asEvent();
+	}
+
+	/**
+	 * @description This method allows for the listening of the TEMPLATE_CONTROLLER_EVENTS.get_by_name_after event.
+	 */
+	get onAfterGetByName() {
+		/* istanbul ignore next */
+		return this._events.get(TEMPLATE_CONTROLLER_EVENTS.get_by_name_after).asEvent();
+	}
+
+	/**
 	 * This method is used to create a new template.
 	 * @param {CreateTemplateDTO} template - The template to create.
 	 * @returns {Promise<TemplateEntity>} - The created template.
@@ -124,6 +143,40 @@ export class TemplateController {
 		this._events.get(TEMPLATE_CONTROLLER_EVENTS.creation_after).dispatch(this, { document });
 
 		return new TemplateEntity(document);
+	}
+
+	/**
+	 * This method is used to list all templates.
+	 * @returns {Promise<TemplateEntity[]>} - The templates.
+	 */
+	@Get()
+	async list() {
+		this._events.get(TEMPLATE_CONTROLLER_EVENTS.list_before).dispatch(this, {});
+
+		const documents = await this._template_service.findAll();
+
+		this._events.get(TEMPLATE_CONTROLLER_EVENTS.list_after).dispatch(this, { documents });
+
+		return documents.map((template) => new TemplateEntity(template));
+	}
+
+	/**
+	 * This method is used to get a template.
+	 * @param name - The name of the template to get.
+	 * @returns {Promise<TemplateEntity>} - The template.
+	 */
+	@PublicEndpoint()
+	@Get("render/:name")
+	async render(@Param("name") name: string) {
+		name = validate<string>(name, z.string().nonempty().toLowerCase());
+
+		this._events.get(TEMPLATE_CONTROLLER_EVENTS.get_by_name_before).dispatch(this, { name });
+
+		const document = await this._template_service.findByName(name);
+
+		this._events.get(TEMPLATE_CONTROLLER_EVENTS.get_by_name_after).dispatch(this, { document });
+
+		return new TemplateRenderingEntity(document);
 	}
 
 	/**
@@ -185,20 +238,5 @@ export class TemplateController {
 		this._events.get(TEMPLATE_CONTROLLER_EVENTS.get_after).dispatch(this, { document });
 
 		return new TemplateEntity(document);
-	}
-
-	/**
-	 * This method is used to list all templates.
-	 * @returns {Promise<TemplateEntity[]>} - The templates.
-	 */
-	@Get()
-	async list() {
-		this._events.get(TEMPLATE_CONTROLLER_EVENTS.list_before).dispatch(this, {});
-
-		const documents = await this._template_service.findAll();
-
-		this._events.get(TEMPLATE_CONTROLLER_EVENTS.list_after).dispatch(this, { documents });
-
-		return documents.map((template) => new TemplateEntity(template));
 	}
 }

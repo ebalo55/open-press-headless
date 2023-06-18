@@ -12,4 +12,6 @@ export const TEMPLATE_CONTROLLER_EVENTS = {
 	list_after: "hook.template.list.after",
 	get_before: "hook.template.get.before",
 	get_after: "hook.template.get.after",
+	get_by_name_before: "hook.template.get_by_name.before",
+	get_by_name_after: "hook.template.get_by_name.after",
 } as const;

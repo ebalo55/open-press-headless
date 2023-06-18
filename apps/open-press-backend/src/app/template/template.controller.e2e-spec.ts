@@ -133,6 +133,11 @@ describe("TemplateController", () => {
 			name: "test",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 
 		const response = await axios.put(
@@ -190,6 +195,11 @@ describe("TemplateController", () => {
 			name: "test",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 
 		const response = await axios.delete(`/template/${template.id}`, {
@@ -235,6 +245,11 @@ describe("TemplateController", () => {
 			name: "test",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 
 		const response = await axios.get(`/template/${template.id}`, {
@@ -280,16 +295,31 @@ describe("TemplateController", () => {
 			name: "test",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 		const template1 = await template_service.create({
 			name: "test1",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 		const template2 = await template_service.create({
 			name: "test2",
 			html: "<h1>Test</h1>",
 			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
 		});
 
 		const response = await axios.get(`/template/`, {
@@ -304,5 +334,26 @@ describe("TemplateController", () => {
 		expect(response.data[0].name).toEqual(template0.name);
 		expect(response.data[1].name).toEqual(template1.name);
 		expect(response.data[2].name).toEqual(template2.name);
+	});
+
+	it("can render template", async () => {
+		const template = await template_service.create({
+			name: "test",
+			html: "<h1>Test</h1>",
+			css: "h1 { color: red; }",
+			project_data: {
+				assets: [],
+				styles: [],
+				pages: [],
+			},
+		});
+
+		const response = await axios.get(`/template/render/${template.name}`, {
+			baseURL: url,
+		});
+
+		expect(response.status).toBe(200);
+
+		console.log(response.data);
 	});
 });

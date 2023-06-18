@@ -34,4 +34,10 @@ export type TemplateControllerEvents = {
 	[TEMPLATE_CONTROLLER_EVENTS.get_after]: {
 		document: TemplateDocument;
 	};
+	[TEMPLATE_CONTROLLER_EVENTS.get_by_name_before]: {
+		name: string;
+	};
+	[TEMPLATE_CONTROLLER_EVENTS.get_by_name_after]: {
+		document: TemplateDocument;
+	};
 };
