@@ -27,11 +27,11 @@
       "@open-press/config/*": [
         "libs/config/src/*"
       ],
-      "@open-press/example-plugin": [
-        "libs/example-plugin/src"
+      "@open-press/plugin-example": [
+        "libs/plugin-example/src"
       ],
-      "@open-press/example-plugin/*": [
-        "libs/example-plugin/src/*"
+      "@open-press/plugin-example/*": [
+        "libs/plugin-example/src/*"
       ],
       "@open-press/models": [
         "libs/models/src"
@@ -56,6 +56,12 @@
       ],
       "@open-press/backend-interfaces/*": [
         "libs/interfaces/src/*"
+      ],
+      "@open-press/plugin-tailwind-classes-builder": [
+        "libs/plugin-tailwind-classes-builder/src"
+      ],
+      "@open-press/plugin-tailwind-classes-builder/*": [
+        "libs/plugin-tailwind-classes-builder/src/*"
       ]
     }
   }
