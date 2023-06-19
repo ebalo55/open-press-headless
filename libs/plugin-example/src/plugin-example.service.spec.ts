@@ -1,15 +1,15 @@
 import { Test } from "@nestjs/testing";
-import { ExamplePluginService } from "./example-plugin.service";
+import { PluginExampleService } from "./plugin-example.service";
 
 describe("ExamplePluginService", () => {
-	let service: ExamplePluginService;
+	let service: PluginExampleService;
 
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
-			providers: [ExamplePluginService],
+			providers: [PluginExampleService],
 		}).compile();
 
-		service = module.get(ExamplePluginService);
+		service = module.get(PluginExampleService);
 	});
 
 	it("should be defined", () => {

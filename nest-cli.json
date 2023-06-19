@@ -17,15 +17,6 @@
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
-    "example-plugin": {
-      "type": "library",
-      "root": "libs/example-plugin",
-      "entryFile": "index",
-      "sourceRoot": "libs/example-plugin/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/example-plugin/tsconfig.lib.json"
-      }
-    },
     "models": {
       "type": "library",
       "root": "libs/models",
@@ -78,6 +69,24 @@
       "sourceRoot": "apps/cli/src",
       "compilerOptions": {
         "tsConfigPath": "apps/cli/tsconfig.app.json"
+      }
+    },
+    "plugin-example": {
+      "type": "library",
+      "root": "libs/plugin-example",
+      "entryFile": "index",
+      "sourceRoot": "libs/plugin-example/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/plugin-example/tsconfig.lib.json"
+      }
+    },
+    "plugin-tailwind-classes-builder": {
+      "type": "library",
+      "root": "libs/plugin-tailwind-classes-builder",
+      "entryFile": "index",
+      "sourceRoot": "libs/plugin-tailwind-classes-builder/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/plugin-tailwind-classes-builder/tsconfig.lib.json"
       }
     }
   },
