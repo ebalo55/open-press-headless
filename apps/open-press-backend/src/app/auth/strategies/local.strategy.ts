@@ -1,48 +1,23 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 import { PassportStrategy } from "@nestjs/passport";
+import {
+	PassportLocalStrategyBeforeValidationEvent,
+	PassportLocalStrategyValidationFailedEvent,
+	PassportLocalStrategyValidationSuccessEvent,
+} from "@open-press/backend-interfaces";
 import { UserDocument } from "@open-press/models";
 import { Strategy } from "passport-local";
-import { NonUniformEventList } from "strongly-typed-events";
 import { AuthService } from "../auth.service";
 import { PASSPORT_LOCAL_STRATEGY_EVENTS } from "../constants";
-import { PassportLocalStrategyEvents } from "../types";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-	private _events = new NonUniformEventList<LocalStrategy, PassportLocalStrategyEvents>();
-
-	constructor(private readonly _auth_service: AuthService) {
+	constructor(private readonly _auth_service: AuthService, private readonly _event_emitter: EventEmitter2) {
 		super({
 			usernameField: "email",
 			session: false,
 		});
-	}
-
-	/**
-	 * This event is emitted before the validation process is started.
-	 * @returns {IEvent<LocalStrategy, PassportLocalStrategyEvents["hook.auth.login.before"]>}
-	 */
-	get onBeforeValidation() {
-		/* istanbul ignore next */
-		return this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.before_validation).asEvent();
-	}
-
-	/**
-	 * This event is emitted when the validation process is successful.
-	 * @returns {IEvent<LocalStrategy, PassportLocalStrategyEvents["hook.auth.login.success"]>}
-	 */
-	get onValidationSuccess() {
-		/* istanbul ignore next */
-		return this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_success).asEvent();
-	}
-
-	/**
-	 * This event is emitted when the validation process is failed.
-	 * @returns {IEvent<LocalStrategy, PassportLocalStrategyEvents["hook.auth.login.failed"]>}
-	 */
-	get onValidationFailed() {
-		/* istanbul ignore next */
-		return this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_failed).asEvent();
 	}
 
 	/**
@@ -53,26 +28,26 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 	 * @throws {UnauthorizedException}
 	 */
 	async validate(email: string, password: string): Promise<UserDocument> {
-		this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.before_validation).dispatch(this, {
+		this._event_emitter.emit(PASSPORT_LOCAL_STRATEGY_EVENTS.before_validation, {
 			email,
 			password,
-		});
+		} as PassportLocalStrategyBeforeValidationEvent);
 
 		const user = await this._auth_service.validate(email, password);
 		if (!user) {
-			this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_failed).dispatch(this, {
+			this._event_emitter.emit(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_failed, {
 				email,
 				password,
-			});
+			} as PassportLocalStrategyValidationFailedEvent);
 
 			throw new UnauthorizedException({
 				error: "Email or password do not match",
 			});
 		}
 
-		this._events.get(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_success).dispatch(this, {
+		this._event_emitter.emit(PASSPORT_LOCAL_STRATEGY_EVENTS.validation_success, {
 			user,
-		});
+		} as PassportLocalStrategyValidationSuccessEvent);
 
 		return user;
 	}

@@ -3,3 +3,4 @@ export * from "./errors";
 export * from "./user.service";
 export * from "./user.schema";
 export * from "./user.dto";
+export * from "./entities";

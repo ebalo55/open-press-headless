@@ -1,6 +1,7 @@
 import { ClassSerializerInterceptor, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { EventEmitterModule } from "@nestjs/event-emitter";
 import { MongooseModule, MongooseModuleFactoryOptions } from "@nestjs/mongoose";
 import {
 	authConfig,
@@ -10,12 +11,20 @@ import {
 	DatabaseConfig,
 	EnvValidation,
 } from "@open-press/config";
+import { TemplateModule } from "@open-press/models";
 import { AuthModule } from "./auth/auth.module";
 import { JwtAuthGuard } from "./auth/guards";
-import { TemplateModule } from "./template/template.module";
 
 @Module({
 	imports: [
+		EventEmitterModule.forRoot({
+			global: true,
+			delimiter: ".",
+			maxListeners: 0,
+			wildcard: true,
+			newListener: true,
+			removeListener: true,
+		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
 			cache: true,

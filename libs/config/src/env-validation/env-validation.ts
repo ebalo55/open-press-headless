@@ -1,18 +1,13 @@
 import { safeValidate } from "@open-press/utility";
 import { readdirSync } from "fs";
-import { tap } from "lodash";
 import { resolve } from "path";
-import { NonUniformEventList } from "strongly-typed-events";
 import { ZodSchema } from "zod";
-import { ENV_VALIDATION_HOOK } from "./constants";
-import { EnvValidationEvents } from "./types";
 
 /**
  * @description This class is responsible for validating the environment variables.
  */
 export class EnvValidation {
 	private static _instance: EnvValidation;
-	private _events = new NonUniformEventList<EnvValidation, EnvValidationEvents>();
 	private _config_file_filters: RegExp[] = [];
 	private _resolution_paths: string[] = [];
 
@@ -32,51 +27,6 @@ export class EnvValidation {
 		}
 
 		return EnvValidation._instance;
-	}
-
-	/**
-	 * Triggered before the validation process begins.
-	 * @returns {IEvent<EnvValidation, EnvValidationEvents["hook.env.validate.before"]>}
-	 */
-	get onBeforeValidation() {
-		/* istanbul ignore next */
-		return this._events.get(ENV_VALIDATION_HOOK.before_validation).asEvent();
-	}
-
-	/**
-	 * Triggered after the validation process ends.
-	 * @returns {IEvent<EnvValidation, EnvValidationEvents["hook.env.validate.after"]>}
-	 */
-	get onAfterValidation() {
-		/* istanbul ignore next */
-		return this._events.get(ENV_VALIDATION_HOOK.after_validation).asEvent();
-	}
-
-	/**
-	 * Triggered when a schema is validated.
-	 * @returns {IEvent<EnvValidation, EnvValidationEvents["hook.env.validate.schema"]>}
-	 */
-	get onValidateSchema() {
-		/* istanbul ignore next */
-		return this._events.get(ENV_VALIDATION_HOOK.validate_schema).asEvent();
-	}
-
-	/**
-	 * Triggered when the configuration files are resolved.
-	 * @returns {IEvent<EnvValidation, EnvValidationEvents["hook.env.configuration.resolved-files"]>}
-	 */
-	get onConfigurationResolvedFiles() {
-		/* istanbul ignore next */
-		return this._events.get(ENV_VALIDATION_HOOK.configuration_resolved_files).asEvent();
-	}
-
-	/**
-	 * Triggered when the schemas are loaded.
-	 * @returns {IEvent<EnvValidation, EnvValidationEvents["hook.env.configuration.loaded-schemas"]>}
-	 */
-	get onConfigurationLoadedSchemas() {
-		/* istanbul ignore next */
-		return this._events.get(ENV_VALIDATION_HOOK.configuration_loaded_schemas).asEvent();
 	}
 
 	/**
@@ -176,25 +126,15 @@ export class EnvValidation {
 	 * @returns {Record<string, unknown>}
 	 */
 	public validateEnv(config: Record<string, any>): Record<string, unknown> {
-		this._events.get(ENV_VALIDATION_HOOK.before_validation).dispatch(this, { config });
-
 		this.resolveConfigValidationSchema().forEach((schema) => {
 			// validate the config object against the validation schema
 			const result = safeValidate(config, schema);
-
-			this._events.get(ENV_VALIDATION_HOOK.validate_schema).dispatch(this, {
-				schema,
-				config,
-				error: result.success ? null : (result as any).error,
-			});
 
 			// if an error was found, re-throw it
 			if (!result.success) {
 				throw new Error(`Config validation error: ${(result as any).error.message}`);
 			}
 		});
-
-		this._events.get(ENV_VALIDATION_HOOK.after_validation).dispatch(this, { config });
 
 		// return the validated config object if no error was found
 		return config;
@@ -219,19 +159,10 @@ export class EnvValidation {
 				const cwd = resolve(path);
 				const config_files = readdirSync(cwd).filter((value) => this.passesConfigFileFilters(value));
 
-				this._events
-					.get(ENV_VALIDATION_HOOK.configuration_resolved_files)
-					.dispatch(this, { files: config_files });
-
-				return tap(
-					config_files
-						.map((file) => require(resolve(cwd, file)))
-						.map((config) => config.validationSchema || null)
-						.filter((schema) => schema !== null) as ZodSchema[],
-					(schemas) => {
-						this._events.get(ENV_VALIDATION_HOOK.configuration_loaded_schemas).dispatch(this, { schemas });
-					}
-				);
+				return config_files
+					.map((file) => require(resolve(cwd, file)))
+					.map((config) => config.validationSchema || null)
+					.filter((schema) => schema !== null) as ZodSchema[];
 			})
 			.flat();
 	}

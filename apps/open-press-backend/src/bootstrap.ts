@@ -1,6 +1,8 @@
 import { Logger, ModuleMetadata, Type } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { CommandFactory } from "nest-commander";
 import { readFile } from "node:fs/promises";
+import { CliModule } from "../../cli/src/cli.module";
 import { AppModule } from "./app/app.module";
 import { PluginLoaderModule } from "./app/plugin-loader/plugin-loader.module";
 
@@ -40,15 +42,21 @@ async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) 
 
 	const plugins = await Promise.all(
 		config.plugins.map((plugin_name) => {
-			const path = require.resolve(plugin_name, {
-				paths: [process.cwd()],
-			});
+			try {
+				const path = require.resolve(plugin_name, {
+					paths: [process.cwd()],
+				});
 
-			return import(path);
+				return import(path);
+			} catch (e: any) {
+				console.warn(`Failed to load plugin ${plugin_name}: ${e.message}`);
+				return new Promise((resolve) => resolve(null));
+			}
 		})
 	);
 
 	const plugin_modules = plugins
+		.filter(Boolean)
 		.map((plugin) => {
 			return plugin.default;
 		})
@@ -60,22 +68,30 @@ async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) 
  * Bootstraps the application.
  * @returns {Promise<void>} A promise that resolves when the application has been bootstrapped.
  */
-export async function bootstrap() {
+export async function bootstrap(is_cli: boolean) {
 	Logger.log("🚀 Bootstrapping application...");
-	const app = await NestFactory.create(await makeRootModule(AppModule));
-	app.enableCors({
-		credentials: true,
-		origin: "*",
-		methods: "*",
-		allowedHeaders: "*",
-		preflightContinue: false,
-		exposedHeaders: "*",
-		optionsSuccessStatus: 201,
-		maxAge: 60000,
-	});
 
-	const port = process.env.PORT || 3000;
-	await app.listen(port);
+	if (is_cli) {
+		await CommandFactory.run((await makeRootModule(CliModule)) as any, new Logger());
+		// await CommandFactory.run((await makeRootModule(CliModule)) as any);
+	} else {
+		const app = await NestFactory.create(await makeRootModule(AppModule));
+		app.enableCors({
+			credentials: true,
+			origin: "*",
+			methods: "*",
+			allowedHeaders: "*",
+			preflightContinue: false,
+			exposedHeaders: "*",
+			optionsSuccessStatus: 201,
+			maxAge: 60000,
+		});
 
-	Logger.log(`🚀 Application is running on: http://localhost:${port}/`);
+		app.enableShutdownHooks();
+
+		const port = process.env.PORT || 3000;
+		await app.listen(port);
+
+		Logger.log(`🚀 Application is running on: http://localhost:${port}/`);
+	}
 }

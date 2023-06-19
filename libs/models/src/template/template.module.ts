@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { TemplateModelModule } from "@open-press/models";
-import { TemplateController } from "./template.controller";
+import { TemplateController } from "./controllers";
+import { TemplateModelModule } from "./template-model.module";
 
 @Module({
 	imports: [TemplateModelModule],

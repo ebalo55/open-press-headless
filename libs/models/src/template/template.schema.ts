@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { mongooseLuxonSetter } from "@open-press/support";
 import { DateTime } from "luxon";
 import { HydratedDocument, Model } from "mongoose";
 
@@ -38,8 +39,7 @@ export class Template {
 		required: true,
 		default: DateTime.now().toISO(),
 		type: String,
-		set: (value: string | DateTime): string =>
-			(value instanceof DateTime ? value.toISO() : DateTime.fromISO(value).toISO()) || "",
+		set: mongooseLuxonSetter,
 	})
 	created_at!: string | DateTime;
 
@@ -51,10 +51,22 @@ export class Template {
 		required: true,
 		default: DateTime.now().toISO(),
 		type: String,
-		set: (value: string | DateTime): string =>
-			(value instanceof DateTime ? value.toISO() : DateTime.fromISO(value).toISO()) || "",
+		set: mongooseLuxonSetter,
 	})
 	updated_at!: string | DateTime;
+
+	/**
+	 * Template's extra data - can be used to store anything.
+	 * NOTE: This field is not allowed by any default validation schema, you should create your own validation schema
+	 *  if you want to use it.
+	 * @type {Record<string, any>} - The extra data.
+	 */
+	@Prop({
+		required: true,
+		default: {},
+		type: Object,
+	})
+	extra!: Record<string, any>;
 }
 
 export const TemplateSchema = SchemaFactory.createForClass(Template);

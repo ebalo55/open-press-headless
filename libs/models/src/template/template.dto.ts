@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateTemplateDTOValidationSchema = z.object({
+export const CreateTemplateDTOValidationSchema = z.strictObject({
 	/**
 	 * @description The name of the template.
 	 */
@@ -19,7 +19,7 @@ export const CreateTemplateDTOValidationSchema = z.object({
 	/**
 	 * @description The project data of the template. This data are used by the editor.
 	 */
-	project_data: z.object({
+	project_data: z.strictObject({
 		assets: z.array(z.any()),
 		styles: z.array(z.any()),
 		pages: z.array(z.any()).length(1),

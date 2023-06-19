@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { mongooseLuxonSetter } from "@open-press/support";
 import { DateTime } from "luxon";
 import { HydratedDocument, Model } from "mongoose";
 
@@ -39,9 +40,10 @@ export class User {
 	@Prop({
 		required: true,
 		default: DateTime.now(),
-		type: DateTime,
+		type: String,
+		set: mongooseLuxonSetter,
 	})
-	created_at!: DateTime;
+	created_at!: string | DateTime;
 
 	/**
 	 * User's last update date - autofilled when using UserService.
@@ -50,9 +52,23 @@ export class User {
 	@Prop({
 		required: true,
 		default: DateTime.now(),
-		type: DateTime,
+		type: String,
+		set: mongooseLuxonSetter,
 	})
-	updated_at!: DateTime;
+	updated_at!: string | DateTime;
+
+	/**
+	 * User's extra data - can be used to store anything.
+	 * NOTE: This field is not allowed by any default validation schema, you should create your own validation schema
+	 *  if you want to use it.
+	 * @type {Record<string, any>} - any extra data.
+	 */
+	@Prop({
+		required: true,
+		type: Object,
+		default: {},
+	})
+	extra!: Record<string, any>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
