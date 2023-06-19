@@ -1,1 +1,2 @@
-export * from "./validation/index";
+export * from "./validation";
+export * from "./make-random-string";
