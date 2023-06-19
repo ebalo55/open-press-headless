@@ -5,6 +5,11 @@ const custom_format = format.printf((data) => {
 	return `[${level}] [${data.label.toLowerCase()}] [${data.timestamp}]: ${data.message}`;
 });
 
+/**
+ * Winston logger factory for the CLI
+ * @param {string} label
+ * @returns {winston.Logger}
+ */
 export const makeLogger = (label: string) => {
 	return createLogger({
 		level: "info",

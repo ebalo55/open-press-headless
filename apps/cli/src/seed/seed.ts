@@ -1,3 +1,4 @@
+import { Logger } from "@nestjs/common";
 import { TemplateService, UserService } from "@open-press/models";
 import * as Listr from "listr";
 import { ListrTaskResult } from "listr";
@@ -65,9 +66,15 @@ export class Seed extends CommandRunner {
 	 * @returns {Promise<void>}
 	 */
 	public async run(passedParams: string[], options?: SeedParams) {
+		// buffer logs from the default logger to avoid immediate output
+		Logger.attachBuffer();
+
 		this.logger.info("Starting seed process");
 
 		const ctx = await this.buildTasks().run(options);
+
+		// flush logs
+		Logger.flush();
 
 		this.ending_logs.forEach((log) => {
 			this.logger.log(log);

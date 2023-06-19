@@ -14,7 +14,7 @@ const config: Config = {
 	testEnvironment: "node",
 	moduleNameMapper: {
 		"^@open-press/config(|/.*)$": "<rootDir>/libs/config/src/$1",
-		"^@open-press/example-plugin(|/.*)$": "<rootDir>/libs/example-plugin/src/$1",
+		"^@open-press/plugin-example(|/.*)$": "<rootDir>/libs/plugin-example/src/$1",
 		"^@open-press/models(|/.*)$": "<rootDir>/libs/models/src/$1",
 		"^@open-press/support(|/.*)$": "<rootDir>/libs/support/src/$1",
 		"^@open-press/utility(|/.*)$": "<rootDir>/libs/utility/src/$1",

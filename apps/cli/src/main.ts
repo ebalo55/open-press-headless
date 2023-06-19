@@ -1,9 +1,3 @@
-import { CommandFactory } from "nest-commander";
-import { CliModule } from "./cli.module";
+import { bootstrap } from "../../open-press-backend/src/bootstrap";
 
-async function bootstrap() {
-	// await CommandFactory.run(CliModule, new Logger());
-	await CommandFactory.run(CliModule);
-}
-
-bootstrap();
+bootstrap(true);
