@@ -1,5 +1,6 @@
 {
 	"plugins": [
-		"./dist/libs/example-plugin"
+		"./dist/libs/plugin-example",
+		"./dist/libs/plugin-tailwind-classes-builder/plugin-tailwind-classes-builder"
 	]
 }
