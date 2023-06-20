@@ -14,7 +14,7 @@ export class TemplateEntity {
 	created_at!: string;
 	updated_at!: string;
 
-	constructor(template: Partial<(TemplateDocument | TemplateEntity) & MongoseId>) {
+	constructor(template: Partial<TemplateDocument & MongoseId>) {
 		Object.assign(this, {
 			id: template._id?.toHexString(),
 			name: template.name,
