@@ -2,7 +2,7 @@
 module.exports = {
 	content: [],
 	corePlugins: {
-		preflight: false,
+		preflight: true,
 	},
 	theme: {
 		extend: {},
