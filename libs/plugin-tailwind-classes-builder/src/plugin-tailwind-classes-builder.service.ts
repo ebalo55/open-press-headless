@@ -109,6 +109,15 @@ export class PluginTailwindClassesBuilderService {
 	}
 
 	/**
+	 * Strip all comments from the css
+	 * @param css The css to strip the comments from
+	 * @private
+	 */
+	private stripCSSComments(css: string) {
+		return css.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, "");
+	}
+
+	/**
 	 * Run the steps to build the tailwind classes
 	 * @param {TemplateServiceCreationAfterEvent | TemplateServiceUpdateAfterEvent} payload The payload of the event
 	 * @returns {Promise<string>} A promise that resolves when the tailwind classes are built and returns the css
@@ -212,7 +221,7 @@ export class PluginTailwindClassesBuilderService {
 			// resolve the promise if the child process exits successfully
 			child.on("close", (code) => {
 				if (code === 0) {
-					resolve(minified_css);
+					resolve(this.stripCSSComments(minified_css));
 				} else {
 					reject(code);
 				}
