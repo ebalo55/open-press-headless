@@ -9,6 +9,7 @@ import {
 } from "@open-press/models";
 import { makeRandomString } from "@open-press/utility";
 import { minify } from "html-minifier";
+import * as jsdom from "jsdom";
 import { spawn } from "node:child_process";
 import { unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -19,6 +20,7 @@ export class PluginTailwindClassesBuilderService {
 	private _stats = {
 		css_starting_size: 0,
 		html_starting_size: 0,
+		scripts_starting_size: 0,
 	};
 
 	constructor(private _template_service: TemplateService) {}
@@ -40,15 +42,24 @@ export class PluginTailwindClassesBuilderService {
 
 	private endStatsLogger(payload: TemplateServiceCreationAfterEvent | TemplateServiceUpdateAfterEvent) {
 		Logger.log(
-			`Finished building and optimizing CSS, generation resulted in a ${payload.document.css.length} bytes CSS and ${payload.document.html.length} bytes HTML`,
+			`Finished building and optimizing CSS, generation resulted in a ${payload.document.css.length} bytes CSS, ` +
+				`${payload.document.html.length} bytes HTML and ${
+					payload.document.extra?.scripts?.length || 0
+				} bytes of scripts`,
 			"PluginTailwindClassesBuilderService"
 		);
 
 		const css_size_difference = this._stats.css_starting_size - payload.document.css.length;
 		const html_size_difference = this._stats.html_starting_size - payload.document.html.length;
+		const scripts_size_difference =
+			this._stats.scripts_starting_size - (payload.document.extra?.scripts?.length || 0);
 
 		const css_reduction_percentage = ((css_size_difference / this._stats.css_starting_size) * 100).toFixed(2);
 		const html_reduction_percentage = ((html_size_difference / this._stats.html_starting_size) * 100).toFixed(2);
+		const scripts_reduction_percentage = (
+			(scripts_size_difference / (this._stats.scripts_starting_size || 1)) *
+			100
+		).toFixed(2);
 
 		Logger.log(
 			`CSS size reduced by ${css_size_difference} bytes (${css_reduction_percentage}%)`,
@@ -56,6 +67,22 @@ export class PluginTailwindClassesBuilderService {
 		);
 		Logger.log(
 			`HTML size reduced by ${html_size_difference} bytes (${html_reduction_percentage}%)`,
+			"PluginTailwindClassesBuilderService"
+		);
+		Logger.log(
+			`Scripts size reduced by ${scripts_size_difference} bytes (${scripts_reduction_percentage}%)`,
+			"PluginTailwindClassesBuilderService"
+		);
+
+		const total_size_difference = css_size_difference + html_size_difference + scripts_size_difference;
+		const total_reduction_percentage = (
+			(total_size_difference /
+				(this._stats.css_starting_size + this._stats.html_starting_size + this._stats.scripts_starting_size)) *
+			100
+		).toFixed(2);
+
+		Logger.log(
+			`Total size reduced by ${total_size_difference} bytes (${total_reduction_percentage}%)`,
 			"PluginTailwindClassesBuilderService"
 		);
 	}
@@ -69,6 +96,7 @@ export class PluginTailwindClassesBuilderService {
 		this._stats = {
 			css_starting_size: payload.document.css.length,
 			html_starting_size: payload.document.html.length,
+			scripts_starting_size: payload.document.extra?.scripts?.length || 0,
 		};
 	}
 
@@ -147,12 +175,46 @@ export class PluginTailwindClassesBuilderService {
 		Logger.log("Minifying HTML", "PluginTailwindClassesBuilderService");
 		Logger.debug(`Total html length ${payload.document.html.length} bytes`, "PluginTailwindClassesBuilderService");
 
-		payload.document.html = this.minifyHtml(this.removeStyleTags(payload.document.html));
+		const html = this.minifyHtml(this.removeStyleTags(payload.document.html));
+
+		Logger.log("Extracting scripts", "PluginTailwindClassesBuilderService");
+		const { scripts, cleaned_html } = this.extractScripts(html);
+
+		payload.document.html = cleaned_html;
+		payload.document.extra = {
+			...payload.document.extra,
+			scripts,
+		};
 
 		Logger.debug(
 			`Total minified html length ${payload.document.html.length} bytes`,
 			"PluginTailwindClassesBuilderService"
 		);
+		Logger.debug(
+			`Extracted and minified scripts length ${payload.document.extra.scripts.length} bytes`,
+			"PluginTailwindClassesBuilderService"
+		);
+	}
+
+	/**
+	 * Extract all the script tags from the html and return the scripts and the html without the script tags
+	 * @param {string} html The html to extract the scripts from
+	 * @returns {{scripts: string, cleaned_html: string}} The scripts and the html without the script tags
+	 * @private
+	 */
+	private extractScripts(html: string): { scripts: string; cleaned_html: string } {
+		let scripts = "";
+
+		const dom = new jsdom.JSDOM(html);
+		dom.window.document.querySelectorAll("script").forEach((script) => {
+			scripts += `;${script.innerHTML}`;
+			script.remove();
+		});
+
+		return {
+			scripts,
+			cleaned_html: dom.window.document.body.outerHTML,
+		};
 	}
 
 	/**
@@ -189,9 +251,9 @@ export class PluginTailwindClassesBuilderService {
 			removeComments: true,
 			removeEmptyAttributes: false,
 			removeEmptyElements: false,
-			removeRedundantAttributes: true,
-			removeScriptTypeAttributes: true,
-			removeStyleLinkTypeAttributes: true,
+			removeRedundantAttributes: false,
+			removeScriptTypeAttributes: false,
+			removeStyleLinkTypeAttributes: false,
 			removeTagWhitespace: true,
 			sortAttributes: true,
 			sortClassName: true,
