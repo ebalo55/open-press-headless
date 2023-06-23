@@ -1,7 +1,7 @@
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { InjectModel } from "@nestjs/mongoose";
-import { DATABASE_CONNECTIONS } from "@open-press/config";
 import { DateTime } from "luxon";
 import { sanitizeFilter } from "mongoose";
 import { TEMPLATE_SERVICE_EVENTS } from "./constants";

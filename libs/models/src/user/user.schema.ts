@@ -1,5 +1,5 @@
+import { mongooseLuxonSetter } from "@aetheria/support";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { mongooseLuxonSetter } from "@open-press/support";
 import { DateTime } from "luxon";
 import { HydratedDocument, Model } from "mongoose";
 

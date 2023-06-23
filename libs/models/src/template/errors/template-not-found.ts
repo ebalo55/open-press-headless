@@ -1,4 +1,4 @@
-import { BaseError, BaseErrorType } from "@open-press/support";
+import { BaseError, BaseErrorType } from "@aetheria/support";
 
 /**
  * Error thrown when a template name is already used.

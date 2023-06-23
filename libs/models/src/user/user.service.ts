@@ -1,7 +1,7 @@
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
+import { HashService } from "@aetheria/support";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { DATABASE_CONNECTIONS } from "@open-press/config";
-import { HashService } from "@open-press/support";
 import { DateTime } from "luxon";
 import { UserNotFoundErrorFactory, VerificationEmailSentErrorFactory } from "./errors";
 import { CreateUserDTO, UpdateUserDTO } from "./user.dto";

@@ -1,4 +1,4 @@
-import { Constructor } from "@open-press/backend-interfaces";
+import { Constructor } from "@aetheria/backend-interfaces";
 
 /**
  * @description This method will create a new error class.

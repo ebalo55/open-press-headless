@@ -1,4 +1,4 @@
-import { safeValidate } from "@open-press/utility";
+import { safeValidate } from "@aetheria/utility";
 import { readdirSync } from "fs";
 import { resolve } from "path";
 import { ZodSchema } from "zod";

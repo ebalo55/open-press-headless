@@ -1,7 +1,7 @@
+import { IS_PUBLIC_ENDPOINT_KEY } from "@aetheria/support";
 import { ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { AuthGuard } from "@nestjs/passport";
-import { IS_PUBLIC_ENDPOINT_KEY } from "@open-press/support";
 import { Observable } from "rxjs";
 
 @Injectable()

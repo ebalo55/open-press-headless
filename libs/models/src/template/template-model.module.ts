@@ -1,6 +1,6 @@
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { DATABASE_CONNECTIONS } from "@open-press/config";
 import { Template, TemplateSchema } from "./template.schema";
 import { TemplateService } from "./template.service";
 

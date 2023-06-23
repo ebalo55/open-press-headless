@@ -1,17 +1,17 @@
 {
-  "$schema": "https://json.schemastore.org/nest-cli",
-  "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/open-press-backend/src",
-  "compilerOptions": {
-    "deleteOutDir": false,
-    "webpack": false,
-    "tsConfigPath": "apps/open-press-backend/tsconfig.app.json"
-  },
-  "projects": {
-    "config": {
-      "type": "library",
-      "root": "libs/config",
-      "entryFile": "index",
+	"$schema": "https://json.schemastore.org/nest-cli",
+	"collection": "@nestjs/schematics",
+	"sourceRoot": "apps/aetheria-backend/src",
+	"compilerOptions": {
+		"deleteOutDir": false,
+		"webpack": false,
+		"tsConfigPath": "apps/aetheria-backend/tsconfig.app.json"
+	},
+	"projects": {
+		"config": {
+			"type": "library",
+			"root": "libs/config",
+			"entryFile": "index",
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
@@ -53,15 +53,15 @@
         "tsConfigPath": "libs/interfaces/tsconfig.lib.json"
       }
     },
-    "open-press-backend": {
-      "type": "application",
-      "root": "apps/open-press-backend",
-      "entryFile": "main",
-      "sourceRoot": "apps/open-press-backend/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/open-press-backend/tsconfig.app.json"
-      }
-    },
+		"aetheria-backend": {
+			"type": "application",
+			"root": "apps/aetheria-backend",
+			"entryFile": "main",
+			"sourceRoot": "apps/aetheria-backend/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/aetheria-backend/tsconfig.app.json"
+			}
+		},
     "cli": {
       "type": "application",
       "root": "apps/cli",
@@ -91,5 +91,5 @@
     }
   },
   "monorepo": true,
-  "root": "apps/open-press-backend"
+	"root": "apps/aetheria-backend"
 }

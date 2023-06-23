@@ -1,8 +1,3 @@
-import { ClassSerializerInterceptor, Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
-import { EventEmitterModule } from "@nestjs/event-emitter";
-import { MongooseModule, MongooseModuleFactoryOptions } from "@nestjs/mongoose";
 import {
 	authConfig,
 	DATABASE_CONFIG_KEY,
@@ -10,8 +5,13 @@ import {
 	databaseConfig,
 	DatabaseConfig,
 	EnvValidation,
-} from "@open-press/config";
-import { TemplateModule } from "@open-press/models";
+} from "@aetheria/config";
+import { TemplateModule } from "@aetheria/models";
+import { ClassSerializerInterceptor, Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { EventEmitterModule } from "@nestjs/event-emitter";
+import { MongooseModule, MongooseModuleFactoryOptions } from "@nestjs/mongoose";
 import { AuthModule } from "./auth/auth.module";
 import { JwtAuthGuard } from "./auth/guards";
 

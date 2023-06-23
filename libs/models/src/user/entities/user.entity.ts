@@ -1,4 +1,4 @@
-import { MongoseId } from "@open-press/backend-interfaces";
+import { MongoseId } from "@aetheria/backend-interfaces";
 import { Exclude } from "class-transformer";
 import { DateTime } from "luxon";
 

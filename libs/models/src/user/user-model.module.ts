@@ -1,7 +1,7 @@
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
+import { HashModule } from "@aetheria/support";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { DATABASE_CONNECTIONS } from "@open-press/config";
-import { HashModule } from "@open-press/support";
 import { User, UserSchema } from "./user.schema";
 import { UserService } from "./user.service";
 

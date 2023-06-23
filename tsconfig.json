@@ -21,48 +21,48 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@open-press/config": [
-        "libs/config/src"
+      "@aetheria/config": [
+	      "libs/config/src"
       ],
-      "@open-press/config/*": [
-        "libs/config/src/*"
-      ],
-      "@open-press/plugin-example": [
-        "libs/plugin-example/src"
-      ],
-      "@open-press/plugin-example/*": [
-        "libs/plugin-example/src/*"
-      ],
-      "@open-press/models": [
-        "libs/models/src"
-      ],
-      "@open-press/models/*": [
-        "libs/models/src/*"
-      ],
-      "@open-press/support": [
-        "libs/support/src"
-      ],
-      "@open-press/support/*": [
-        "libs/support/src/*"
-      ],
-      "@open-press/utility": [
-        "libs/utility/src"
-      ],
-      "@open-press/utility/*": [
-        "libs/utility/src/*"
-      ],
-      "@open-press/backend-interfaces": [
-        "libs/interfaces/src"
-      ],
-      "@open-press/backend-interfaces/*": [
-        "libs/interfaces/src/*"
-      ],
-      "@open-press/plugin-tailwind-classes-builder": [
-        "libs/plugin-tailwind-classes-builder/src"
-      ],
-      "@open-press/plugin-tailwind-classes-builder/*": [
-        "libs/plugin-tailwind-classes-builder/src/*"
-      ]
+	    "@aetheria/config/*": [
+		    "libs/config/src/*"
+	    ],
+	    "@aetheria/plugin-example": [
+		    "libs/plugin-example/src"
+	    ],
+	    "@aetheria/plugin-example/*": [
+		    "libs/plugin-example/src/*"
+	    ],
+	    "@aetheria/models": [
+		    "libs/models/src"
+	    ],
+	    "@aetheria/models/*": [
+		    "libs/models/src/*"
+	    ],
+	    "@aetheria/support": [
+		    "libs/support/src"
+	    ],
+	    "@aetheria/support/*": [
+		    "libs/support/src/*"
+	    ],
+	    "@aetheria/utility": [
+		    "libs/utility/src"
+	    ],
+	    "@aetheria/utility/*": [
+		    "libs/utility/src/*"
+	    ],
+	    "@aetheria/backend-interfaces": [
+		    "libs/interfaces/src"
+	    ],
+	    "@aetheria/backend-interfaces/*": [
+		    "libs/interfaces/src/*"
+	    ],
+	    "@aetheria/plugin-tailwind-classes-builder": [
+		    "libs/plugin-tailwind-classes-builder/src"
+	    ],
+	    "@aetheria/plugin-tailwind-classes-builder/*": [
+		    "libs/plugin-tailwind-classes-builder/src/*"
+	    ]
     }
   }
 }

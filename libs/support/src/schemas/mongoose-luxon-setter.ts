@@ -6,7 +6,7 @@ import { DateTime } from "luxon";
  * @example
  * import { DateTime } from "luxon";
  * import { Schema } from "mongoose";
- * import { mongooseLuxonSetter } from "@open-press/support";
+ * import { mongooseLuxonSetter } from "@aetheria/support";
  *
  * const schema = new Schema({
  * 	created_at: {

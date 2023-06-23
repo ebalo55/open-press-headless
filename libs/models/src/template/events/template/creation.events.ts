@@ -1,4 +1,4 @@
-import { CreateTemplateDTO, TemplateDocument } from "@open-press/models";
+import { CreateTemplateDTO, TemplateDocument } from "@aetheria/models";
 
 export type TemplateServiceCreationBeforeEvent = {
 	template: CreateTemplateDTO;

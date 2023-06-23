@@ -1,9 +1,9 @@
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
+import { UserService } from "@aetheria/models";
 import { faker } from "@faker-js/faker";
 import { INestApplication } from "@nestjs/common";
 import { getConnectionToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
-import { DATABASE_CONNECTIONS } from "@open-press/config";
-import { UserService } from "@open-press/models";
 import axios from "axios";
 import { Connection } from "mongoose";
 import { AppModule } from "../app.module";

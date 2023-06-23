@@ -1,5 +1,5 @@
-import { JwtResponse } from "@open-press/backend-interfaces";
-import { UserDocument, UserNotFoundError } from "@open-press/models";
+import { JwtResponse } from "@aetheria/backend-interfaces";
+import { UserDocument, UserNotFoundError } from "@aetheria/models";
 
 export type AuthServiceBeforeValidationEvent = {
 	email: string;

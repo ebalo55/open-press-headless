@@ -1,6 +1,6 @@
+import { authConfig } from "@aetheria/config";
 import { ConfigModule } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
-import { authConfig } from "@open-press/config";
 import { HashService } from "./hash.service";
 
 describe("HashService", () => {

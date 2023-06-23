@@ -1,15 +1,15 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { EventEmitter2 } from "@nestjs/event-emitter";
-import { JwtService } from "@nestjs/jwt";
 import {
 	AuthServiceBeforeValidationEvent,
 	AuthServiceUserLoggedInEvent,
 	AuthServiceValidationFailedEvent,
 	AuthServiceValidationSuccessEvent,
 	JwtResponse,
-} from "@open-press/backend-interfaces";
-import { AUTH_CONFIG_KEY, AuthConfig } from "@open-press/config";
-import { UserDocument, UserService } from "@open-press/models";
+} from "@aetheria/backend-interfaces";
+import { AUTH_CONFIG_KEY, AuthConfig } from "@aetheria/config";
+import { UserDocument, UserService } from "@aetheria/models";
+import { Inject, Injectable } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { JwtService } from "@nestjs/jwt";
 import { tap } from "lodash";
 import { AUTH_SERVICE_EVENTS } from "./constants";
 

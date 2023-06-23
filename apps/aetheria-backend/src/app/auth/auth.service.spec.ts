@@ -1,9 +1,3 @@
-import { ConfigModule } from "@nestjs/config";
-import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
-import { MongooseModule } from "@nestjs/mongoose";
-import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
-import { PassportModule } from "@nestjs/passport";
-import { Test, TestingModule } from "@nestjs/testing";
 import {
 	AUTH_CONFIG_KEY,
 	AuthConfig,
@@ -13,8 +7,14 @@ import {
 	DatabaseConfig,
 	databaseConfig,
 	EnvValidation,
-} from "@open-press/config";
-import { UserModelModule } from "@open-press/models";
+} from "@aetheria/config";
+import { UserModelModule } from "@aetheria/models";
+import { ConfigModule } from "@nestjs/config";
+import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
+import { MongooseModule } from "@nestjs/mongoose";
+import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
+import { PassportModule } from "@nestjs/passport";
+import { Test, TestingModule } from "@nestjs/testing";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy, LocalStrategy } from "./strategies";

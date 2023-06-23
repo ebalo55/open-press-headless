@@ -1,8 +1,8 @@
+import { AUTH_CONFIG_KEY, AuthConfig } from "@aetheria/config";
+import { UserModelModule } from "@aetheria/models";
 import { Module } from "@nestjs/common";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
-import { AUTH_CONFIG_KEY, AuthConfig } from "@open-press/config";
-import { UserModelModule } from "@open-press/models";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy, LocalStrategy } from "./strategies";

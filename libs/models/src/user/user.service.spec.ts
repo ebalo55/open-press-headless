@@ -1,8 +1,3 @@
-import { faker } from "@faker-js/faker";
-import { ConfigModule } from "@nestjs/config";
-import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
-import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
-import { Test, TestingModule } from "@nestjs/testing";
 import {
 	authConfig,
 	DATABASE_CONFIG_KEY,
@@ -10,8 +5,13 @@ import {
 	databaseConfig,
 	DatabaseConfig,
 	EnvValidation,
-} from "@open-press/config";
-import { HashModule, HashService } from "@open-press/support";
+} from "@aetheria/config";
+import { HashModule, HashService } from "@aetheria/support";
+import { faker } from "@faker-js/faker";
+import { ConfigModule } from "@nestjs/config";
+import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
+import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
+import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
 import { UserNotFoundErrorFactory, VerificationEmailSentErrorFactory } from "./errors";
 import { User, UserSchema } from "./user.schema";

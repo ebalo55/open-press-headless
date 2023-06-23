@@ -1,4 +1,4 @@
-import { TemplateDocument } from "@open-press/models";
+import { TemplateDocument } from "@aetheria/models";
 
 export type TemplateServiceFindBeforeEvent = {
 	template_id: string;

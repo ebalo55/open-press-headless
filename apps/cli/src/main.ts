@@ -1,3 +1,3 @@
-import { bootstrap } from "../../open-press-backend/src/bootstrap";
+import { bootstrap } from "../../aetheria-backend/src/bootstrap";
 
 bootstrap(true);

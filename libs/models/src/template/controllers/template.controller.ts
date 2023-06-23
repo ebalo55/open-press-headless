@@ -1,6 +1,6 @@
+import { PublicEndpoint } from "@aetheria/support";
+import { MongoIdSchema, validate, validateMany } from "@aetheria/utility";
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { PublicEndpoint } from "@open-press/support";
-import { MongoIdSchema, validate, validateMany } from "@open-press/utility";
 import { z } from "zod";
 import { TemplateEntity, TemplateRenderingEntity } from "../entities";
 import {

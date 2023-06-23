@@ -1,18 +1,15 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
-import { EventEmitter2 } from "@nestjs/event-emitter";
 import {
 	AuthControllerAfterLoginEvent,
 	AuthControllerAfterProfileEvent,
 	AuthControllerBeforeProfileEvent,
 	AuthControllerBeforeValidationEvent,
-} from "@open-press/backend-interfaces";
-import {
-	LoginRequestDto,
-	LoginRequestValidationSchema,
-} from "@open-press/backend-interfaces/lib/dtos/login-request.dto";
-import { User, UserDocument, UserEntity } from "@open-press/models";
-import { PublicEndpoint, RestUser } from "@open-press/support";
-import { validate } from "@open-press/utility";
+} from "@aetheria/backend-interfaces";
+import { LoginRequestDto, LoginRequestValidationSchema } from "@aetheria/backend-interfaces/lib/dtos/login-request.dto";
+import { User, UserDocument, UserEntity } from "@aetheria/models";
+import { PublicEndpoint, RestUser } from "@aetheria/support";
+import { validate } from "@aetheria/utility";
+import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Request } from "express";
 import { tap } from "lodash";
 import { AuthService } from "./auth.service";

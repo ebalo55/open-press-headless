@@ -1,5 +1,5 @@
+import { AUTH_CONFIG_KEY, AuthConfig } from "@aetheria/config";
 import { Inject, Injectable } from "@nestjs/common";
-import { AUTH_CONFIG_KEY, AuthConfig } from "@open-press/config";
 import * as bcrypt from "bcrypt";
 
 @Injectable()

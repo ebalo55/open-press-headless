@@ -1,5 +1,5 @@
+import { TemplateService, UserService } from "@aetheria/models";
 import { Logger } from "@nestjs/common";
-import { TemplateService, UserService } from "@open-press/models";
 import * as Listr from "listr";
 import { ListrTaskResult } from "listr";
 import { Command, CommandRunner, Option } from "nest-commander";
@@ -48,7 +48,7 @@ export class Seed extends CommandRunner {
 		flags: "-s, --seed <seeder-file>",
 		description: "JSON file to seed the database with",
 		required: true,
-		defaultValue: "open-press.seed.json",
+		defaultValue: "aetheria.seed.json",
 	})
 	public parseSeedConfig(seed_file: string) {
 		const result = z.string().nonempty().safeParse(seed_file);

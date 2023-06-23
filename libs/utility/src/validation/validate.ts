@@ -1,5 +1,5 @@
+import { Constructor } from "@aetheria/backend-interfaces";
 import { BadRequestException } from "@nestjs/common";
-import { Constructor } from "@open-press/backend-interfaces";
 import { z, ZodError } from "zod";
 
 export const validate = <

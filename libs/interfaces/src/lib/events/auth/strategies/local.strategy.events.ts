@@ -1,4 +1,4 @@
-import { UserDocument } from "@open-press/models";
+import { UserDocument } from "@aetheria/models";
 
 export type PassportLocalStrategyBeforeValidationEvent = {
 	email: string;

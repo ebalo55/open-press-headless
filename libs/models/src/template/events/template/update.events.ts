@@ -1,4 +1,4 @@
-import { TemplateDocument, UpdateTemplateDTO } from "@open-press/models";
+import { TemplateDocument, UpdateTemplateDTO } from "@aetheria/models";
 
 export type TemplateServiceUpdateBeforeEvent = {
 	template_id: string;

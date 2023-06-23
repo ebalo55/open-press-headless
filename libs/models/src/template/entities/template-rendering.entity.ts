@@ -1,6 +1,6 @@
+import { MongoseId } from "@aetheria/backend-interfaces";
+import { TemplateDocument, TemplateEntity } from "@aetheria/models";
 import { PickType } from "@nestjs/mapped-types";
-import { MongoseId } from "@open-press/backend-interfaces";
-import { TemplateDocument, TemplateEntity } from "@open-press/models";
 
 export class TemplateRenderingEntity extends PickType(TemplateEntity, ["html", "css"] as const) {
 	scripts?: string;

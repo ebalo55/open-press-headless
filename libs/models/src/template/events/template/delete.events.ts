@@ -1,4 +1,4 @@
-import { TemplateDocument } from "@open-press/models";
+import { TemplateDocument } from "@aetheria/models";
 
 export type TemplateServiceDeleteBeforeEvent = {
 	template_id: string;

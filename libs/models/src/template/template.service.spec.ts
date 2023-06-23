@@ -1,7 +1,3 @@
-import { ConfigModule } from "@nestjs/config";
-import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
-import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
-import { Test, TestingModule } from "@nestjs/testing";
 import {
 	authConfig,
 	DATABASE_CONFIG_KEY,
@@ -9,7 +5,11 @@ import {
 	DatabaseConfig,
 	databaseConfig,
 	EnvValidation,
-} from "@open-press/config";
+} from "@aetheria/config";
+import { ConfigModule } from "@nestjs/config";
+import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
+import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
+import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
 import { TemplateNameAlreadyUsedErrorFactory, TemplateNotFoundErrorFactory } from "./errors";
 import { Template, TemplateSchema } from "./template.schema";

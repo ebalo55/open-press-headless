@@ -1,12 +1,12 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { EventEmitter2 } from "@nestjs/event-emitter";
-import { PassportStrategy } from "@nestjs/passport";
 import {
 	PassportLocalStrategyBeforeValidationEvent,
 	PassportLocalStrategyValidationFailedEvent,
 	PassportLocalStrategyValidationSuccessEvent,
-} from "@open-press/backend-interfaces";
-import { UserDocument } from "@open-press/models";
+} from "@aetheria/backend-interfaces";
+import { UserDocument } from "@aetheria/models";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
 import { AuthService } from "../auth.service";
 import { PASSPORT_LOCAL_STRATEGY_EVENTS } from "../constants";

@@ -13,12 +13,12 @@ const config: Config = {
 	coverageDirectory: "./coverage",
 	testEnvironment: "node",
 	moduleNameMapper: {
-		"^@open-press/config(|/.*)$": "<rootDir>/libs/config/src/$1",
-		"^@open-press/plugin-example(|/.*)$": "<rootDir>/libs/plugin-example/src/$1",
-		"^@open-press/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-		"^@open-press/support(|/.*)$": "<rootDir>/libs/support/src/$1",
-		"^@open-press/utility(|/.*)$": "<rootDir>/libs/utility/src/$1",
-		"^@open-press/backend-interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
+		"^@aetheria/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+		"^@aetheria/plugin-example(|/.*)$": "<rootDir>/libs/plugin-example/src/$1",
+		"^@aetheria/models(|/.*)$": "<rootDir>/libs/models/src/$1",
+		"^@aetheria/support(|/.*)$": "<rootDir>/libs/support/src/$1",
+		"^@aetheria/utility(|/.*)$": "<rootDir>/libs/utility/src/$1",
+		"^@aetheria/backend-interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
 	},
 };
 

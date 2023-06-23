@@ -2,7 +2,7 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"declaration": false,
-		"outDir": "../../dist/apps/open-press-backend"
+		"outDir": "../../dist/apps/aetheria-backend"
 	},
 	"include": [
 		"src/**/*"

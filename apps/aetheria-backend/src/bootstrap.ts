@@ -6,7 +6,7 @@ import { CliModule } from "../../cli/src/cli.module";
 import { AppModule } from "./app/app.module";
 import { PluginLoaderModule } from "./app/plugin-loader/plugin-loader.module";
 
-interface OpenPressConfig {
+interface AetheriaConfig {
 	plugins: string[];
 }
 
@@ -23,21 +23,21 @@ async function makeRootModule(root_module: Type) {
 }
 
 /**
- * Reads the OpenPress configuration file.
- * @param {string} config_filename The path to the OpenPress configuration file.
- * @returns {Promise<OpenPressConfig>} The OpenPress configuration.
+ * Reads the Aetheria configuration file.
+ * @param {string} config_filename The path to the Aetheria configuration file.
+ * @returns {Promise<AetheriaConfig>} The Aetheria configuration.
  */
 async function readConfig(config_filename: string) {
-	return JSON.parse(await readFile(config_filename, "utf-8")) as OpenPressConfig;
+	return JSON.parse(await readFile(config_filename, "utf-8")) as AetheriaConfig;
 }
 
 /**
- * Registers the plugins specified in the OpenPress configuration file.
+ * Registers the plugins specified in the Aetheria configuration file.
  * @param {NonNullable<ModuleMetadata["imports"]>} imports The imports array of the root module.
  * @returns {Promise<void>} A promise that resolves when all plugins have been registered.
  */
 async function registerPlugins(imports: NonNullable<ModuleMetadata["imports"]>) {
-	const config_filename = "open-press.json";
+	const config_filename = "aetheria.json";
 	const config = await readConfig(config_filename);
 
 	const plugins = await Promise.all(

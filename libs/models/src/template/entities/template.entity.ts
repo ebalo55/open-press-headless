@@ -1,5 +1,5 @@
-import { MongoseId } from "@open-press/backend-interfaces";
-import { TemplateDocument } from "@open-press/models";
+import { MongoseId } from "@aetheria/backend-interfaces";
+import { TemplateDocument } from "@aetheria/models";
 
 export class TemplateEntity {
 	id!: string;

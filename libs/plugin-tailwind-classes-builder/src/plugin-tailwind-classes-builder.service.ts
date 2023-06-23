@@ -1,13 +1,13 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { OnEvent } from "@nestjs/event-emitter";
 import {
 	TEMPLATE_SERVICE_EVENTS,
 	TemplateDocument,
 	TemplateService,
 	TemplateServiceCreationAfterEvent,
 	TemplateServiceUpdateAfterEvent,
-} from "@open-press/models";
-import { makeRandomString } from "@open-press/utility";
+} from "@aetheria/models";
+import { makeRandomString } from "@aetheria/utility";
+import { Injectable, Logger } from "@nestjs/common";
+import { OnEvent } from "@nestjs/event-emitter";
 import { minify } from "html-minifier";
 import * as jsdom from "jsdom";
 import { spawn } from "node:child_process";

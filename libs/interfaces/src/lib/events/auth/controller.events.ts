@@ -1,5 +1,5 @@
-import { JwtResponse } from "@open-press/backend-interfaces";
-import { UserDocument, UserEntity } from "@open-press/models";
+import { JwtResponse } from "@aetheria/backend-interfaces";
+import { UserDocument, UserEntity } from "@aetheria/models";
 import { Request } from "express";
 
 export type AuthControllerBeforeValidationEvent = {
