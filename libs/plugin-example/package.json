@@ -1,0 +1,7 @@
+{
+	"name": "@aetheria/plugin-example",
+	"version": "1.0.0",
+	"aetheria": {
+		"assets": []
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"name": "@aetheria/plugin-tailwind-classes-builder",
+	"version": "1.0.0",
+	"aetheria": {
+		"assets": []
+	}
+}

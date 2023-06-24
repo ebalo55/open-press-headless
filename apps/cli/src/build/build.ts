@@ -1,7 +1,7 @@
 import { tap } from "lodash";
 import { Command, CommandRunner } from "nest-commander";
 import { exec } from "node:child_process";
-import { readdir } from "node:fs/promises";
+import { cp, readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cwd } from "node:process";
 import { makeLogger } from "../logger";
@@ -54,6 +54,34 @@ export class Build extends CommandRunner {
 		});
 	}
 
+	private async copyAssets(plugin: string) {
+		this.logger.info(`Copying assets for plugin ${plugin}`);
+
+		try {
+			const package_json = JSON.parse(await readFile(resolve(cwd(), "libs", plugin, "package.json"), "utf-8"));
+			if (package_json?.aetheria?.assets && Array.isArray(package_json?.aetheria?.assets)) {
+				this.logger.info(`[${plugin}] - Found ${package_json.aetheria.assets.length + 1} assets to copy`);
+				await Promise.all(
+					package_json.aetheria.assets.map(async (asset: string) => {
+						this.logger.info(`[${plugin}] - Copying ${asset}`);
+						await cp(resolve(cwd(), "libs", plugin, asset), resolve(cwd(), "dist", "libs", plugin, asset));
+					})
+				);
+			}
+
+			this.logger.info(`[${plugin}] - Copying package.json`);
+			await cp(
+				resolve(cwd(), "libs", plugin, "package.json"),
+				resolve(cwd(), "dist", "libs", plugin, "package.json")
+			);
+
+			this.logger.info(`[${plugin}] - All assets copied successfully`);
+		} catch (e: any) {
+			this.logger.debug(`[${plugin}] [ERR] - ${e.message}`);
+			this.logger.warn(`[${plugin}] - No assets to copy`);
+		}
+	}
+
 	/**
 	 * Build the plugins
 	 * @param {string[]} plugins - Plugins to build.
@@ -62,6 +90,7 @@ export class Build extends CommandRunner {
 	 */
 	private async buildPlugins(plugins: string[]) {
 		await Promise.all(plugins.map((plugin) => this.buildPlugin(plugin)));
+		await Promise.all(plugins.map((plugin) => this.copyAssets(plugin)));
 	}
 
 	/**
