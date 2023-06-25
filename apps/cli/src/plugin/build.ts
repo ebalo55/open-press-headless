@@ -1,16 +1,16 @@
 import { tap } from "lodash";
-import { Command, CommandRunner } from "nest-commander";
+import { CommandRunner, SubCommand } from "nest-commander";
 import { exec } from "node:child_process";
 import { cp, readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cwd } from "node:process";
 import { makeLogger } from "../logger";
 
-@Command({
+@SubCommand({
 	name: "build",
 	description: "Build the application plugins",
 })
-export class Build extends CommandRunner {
+export class PluginSubBuild extends CommandRunner {
 	private logger: ReturnType<typeof makeLogger>;
 
 	constructor() {
@@ -61,9 +61,11 @@ export class Build extends CommandRunner {
 			const package_json = JSON.parse(await readFile(resolve(cwd(), "libs", plugin, "package.json"), "utf-8"));
 			if (package_json?.aetheria?.assets && Array.isArray(package_json?.aetheria?.assets)) {
 				this.logger.info(`[${plugin}] - Found ${package_json.aetheria.assets.length + 1} assets to copy`);
+
 				await Promise.all(
 					package_json.aetheria.assets.map(async (asset: string) => {
 						this.logger.info(`[${plugin}] - Copying ${asset}`);
+
 						await cp(resolve(cwd(), "libs", plugin, asset), resolve(cwd(), "dist", "libs", plugin, asset));
 					})
 				);
