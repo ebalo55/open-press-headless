@@ -1,10 +1,7 @@
-import { AetheriaConfiguration } from "@aetheria/backend-interfaces";
 import * as Table from "cli-table3";
 import { CommandRunner, SubCommand } from "nest-commander";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import { cwd } from "node:process";
 import { makeLogger } from "../logger";
+import { getConfiguration, resolvePlugins } from "@aetheria/config";
 
 @SubCommand({
 	name: "list",
@@ -33,22 +30,10 @@ export class PluginSubList extends CommandRunner {
 		console.log(table.toString());
 	}
 
-	private async getConfiguration() {
-		const plugins = await readFile("./aetheria.json", "utf-8");
-		return JSON.parse(plugins) as AetheriaConfiguration;
-	}
-
 	private async getPlugins() {
-		const configuration = await this.getConfiguration();
+		const configuration = await getConfiguration();
+		const plugins = await resolvePlugins(configuration);
 
-		return await Promise.all(
-			configuration.plugins.map(async (plugin): Promise<[string, string]> => {
-				const package_json = JSON.parse(
-					await readFile(resolve(cwd(), plugin.resolve, "package.json"), "utf-8")
-				);
-
-				return [plugin.id, package_json.version ? `v${package_json.version}` : "Unknown"];
-			})
-		);
+		return plugins.map((plugin): [string, string] => [plugin.name, plugin.version]);
 	}
 }

@@ -1,3 +1,5 @@
+import { AetheriaPlugin } from "@aetheria/backend-interfaces/lib/configuration/aetheria-plugin";
+
 export interface AetheriaConfiguration {
-	plugins: { id: string; resolve: string }[];
+	plugins: AetheriaPlugin[];
 }
