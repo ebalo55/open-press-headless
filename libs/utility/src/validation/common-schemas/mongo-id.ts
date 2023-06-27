@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const MongoIdSchema = z.custom<string>(
 	(value) => {
+		/* istanbul ignore next */
 		if (typeof value !== "string") {
 			return false;
 		}

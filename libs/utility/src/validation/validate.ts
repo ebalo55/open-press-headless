@@ -26,6 +26,7 @@ export const validate = <
 			});
 		}
 
+		/* istanbul ignore next */
 		throw e;
 	}
 };

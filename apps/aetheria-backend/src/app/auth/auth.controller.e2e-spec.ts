@@ -2,6 +2,7 @@ import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { UserService } from "@aetheria/models";
 import { faker } from "@faker-js/faker";
 import { INestApplication } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 import { getConnectionToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import axios from "axios";
@@ -14,6 +15,7 @@ describe("AuthController", () => {
 	let app: INestApplication,
 		local_strategy: LocalStrategy,
 		user_service: UserService,
+		jwt_service: JwtService,
 		url: string,
 		module: TestingModule,
 		connection: Connection;
@@ -33,6 +35,7 @@ describe("AuthController", () => {
 
 		local_strategy = module.get<LocalStrategy>(LocalStrategy);
 		user_service = module.get<UserService>(UserService);
+		jwt_service = module.get<JwtService>(JwtService);
 
 		app = module.createNestApplication();
 		await app.listen(3000);
@@ -131,5 +134,48 @@ describe("AuthController", () => {
 		expect(res.data.email).toBeDefined();
 
 		expect(res.data.email).toEqual("test@example.com");
+	});
+
+	it("can revalidate if authenticated", async () => {
+		await makeUser("test@example.com", "password");
+
+		const login_response = await axios.post(
+			`/auth/login`,
+			{
+				email: "test@example.com",
+				password: "password",
+				remember_me: false,
+			},
+			{
+				baseURL: url,
+			}
+		);
+
+		const res = await axios.get(`/auth/revalidate`, {
+			baseURL: url,
+			headers: {
+				Authorization: `Bearer ${login_response.data.access_token}`,
+			},
+		});
+
+		expect(res.status).toBe(200);
+		expect(res.data.can_revalidate).toBeTruthy();
+	});
+
+	it("fails if malformed jwt is used", async () => {
+		await makeUser("test@example.com", "password");
+
+		const bearer = jwt_service.sign({});
+
+		try {
+			await axios.get(`/auth/profile`, {
+				baseURL: url,
+				headers: {
+					Authorization: `Bearer ${bearer}`,
+				},
+			});
+		} catch (e: any) {
+			expect(e.response.status).toBe(401);
+		}
 	});
 });

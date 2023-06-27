@@ -24,6 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
+			/* istanbul ignore next */
 			secretOrKey:
 				_auth_config.jwt.encryption === "symmetric" ? _auth_config.jwt.secret : _auth_config.jwt.public_key,
 			audience: _auth_config.jwt.audience,

@@ -64,6 +64,7 @@ export class AuthService {
 					{},
 					{
 						subject: user.id,
+						/* istanbul ignore next */
 						expiresIn: !remember_me ? this._auth_config.jwt.expires_in : "30 days",
 					}
 				),

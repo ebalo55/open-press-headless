@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { DynamicModule, Module, ModuleMetadata } from "@nestjs/common";
 
 @Module({})

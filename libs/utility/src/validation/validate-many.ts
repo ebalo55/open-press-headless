@@ -13,15 +13,18 @@ export const validateMany = <
 	error: E = BadRequestException as any
 ): R => {
 	if (value.length !== schema.length) {
-		throw new error({
-			form_errors: [],
-			field_errors: [
-				{
-					message: "The number of items in the array does not match the number of schemas.",
-					code: "invalid_array_length",
-				},
-			],
-		});
+		if (error instanceof BadRequestException) {
+			throw new BadRequestException({
+				form_errors: [
+					{
+						message: "The number of items in the array does not match the number of schemas.",
+						code: "invalid_array_length",
+					},
+				],
+				field_errors: [],
+			});
+		}
+		throw new error("The number of items in the array does not match the number of schemas.");
 	}
 
 	return schema.map((schema, index) => validate(value[index], schema, error)) as any;

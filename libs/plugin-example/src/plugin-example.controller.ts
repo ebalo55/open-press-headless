@@ -1,3 +1,4 @@
+import { PublicEndpoint } from "@aetheria/support";
 import { Controller, Get } from "@nestjs/common";
 import { PluginExampleService } from "./plugin-example.service";
 
@@ -5,6 +6,7 @@ import { PluginExampleService } from "./plugin-example.service";
 export class PluginExampleController {
 	constructor(private examplePluginService: PluginExampleService) {}
 
+	@PublicEndpoint()
 	@Get()
 	public async exampleControllerMethod(): Promise<{ example: string }> {
 		return await this.examplePluginService.exampleMethod();

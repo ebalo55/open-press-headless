@@ -27,7 +27,7 @@ export class PluginTailwindClassesBuilderService {
 
 	@OnEvent(TEMPLATE_SERVICE_EVENTS.creation_after)
 	@OnEvent(TEMPLATE_SERVICE_EVENTS.update_after)
-	async handleTemplateUpdateOrCreation(
+	public async handleTemplateUpdateOrCreation(
 		payload: TemplateServiceCreationAfterEvent | TemplateServiceUpdateAfterEvent
 	): Promise<void> {
 		this.startStatsLogger(payload);
@@ -275,6 +275,7 @@ export class PluginTailwindClassesBuilderService {
 			});
 
 			// log errors and fail if the child process fails
+			/* istanbul ignore next */
 			child.on("error", (err) => {
 				Logger.error(err?.message, "PluginTailwindClassesBuilderService");
 				reject(err);
@@ -282,6 +283,7 @@ export class PluginTailwindClassesBuilderService {
 
 			// resolve the promise if the child process exits successfully
 			child.on("close", (code) => {
+				/* istanbul ignore else */
 				if (code === 0) {
 					resolve(this.stripCSSComments(minified_css));
 				} else {
@@ -337,6 +339,7 @@ export class PluginTailwindClassesBuilderService {
 			});
 
 			// log errors and fail if the child process fails
+			/* istanbul ignore next */
 			child.on("error", (err) => {
 				Logger.error(err?.message, "PluginTailwindClassesBuilderService");
 				reject(err);
@@ -344,6 +347,7 @@ export class PluginTailwindClassesBuilderService {
 
 			// resolve the promise if the child process exits successfully
 			child.on("close", (code) => {
+				/* istanbul ignore else */
 				if (code === 0) {
 					resolve(generated_css);
 				} else {

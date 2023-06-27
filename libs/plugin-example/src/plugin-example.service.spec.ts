@@ -12,7 +12,7 @@ describe("ExamplePluginService", () => {
 		service = module.get(PluginExampleService);
 	});
 
-	it("should be defined", () => {
-		expect(service).toBeTruthy();
+	it("returns example value", async () => {
+		expect(await service.exampleMethod()).toEqual({ example: "example-value" });
 	});
 });

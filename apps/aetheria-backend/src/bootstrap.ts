@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { AetheriaConfiguration } from "@aetheria/backend-interfaces";
 import { Logger, ModuleMetadata, Type } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";

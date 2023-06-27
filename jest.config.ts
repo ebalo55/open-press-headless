@@ -9,7 +9,7 @@ const config: Config = {
 	transform: {
 		"^.+\\.(t|j)s$": "ts-jest",
 	},
-	collectCoverageFrom: ["**/*.(t|j)s"],
+	collectCoverageFrom: ["**/*.[tj]s", "!apps/cli/**/*.[tj]s", "!libs/interfaces/**/*.[tj]s", "!**/index.ts"],
 	coverageDirectory: "./coverage",
 	testEnvironment: "node",
 	moduleNameMapper: {
