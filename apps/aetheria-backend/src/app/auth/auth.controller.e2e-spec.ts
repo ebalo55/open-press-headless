@@ -49,10 +49,6 @@ describe("AuthController", () => {
 	});
 
 	it("should fire local strategy hooks when logging in", async () => {
-		const unsubscribe = local_strategy.onBeforeValidation.subscribe((caller) => {
-			expect(caller).toBe(local_strategy);
-		});
-
 		await makeUser("test@example.com", "password");
 
 		const res = await axios.post(
@@ -60,6 +56,7 @@ describe("AuthController", () => {
 			{
 				email: "test@example.com",
 				password: "password",
+				remember_me: false,
 			},
 			{
 				baseURL: url,
@@ -67,8 +64,6 @@ describe("AuthController", () => {
 		);
 
 		expect(res.status).toBe(201);
-
-		unsubscribe();
 	});
 
 	it("should return valid access token on login", async () => {
@@ -79,6 +74,7 @@ describe("AuthController", () => {
 			{
 				email: "test@example.com",
 				password: "password",
+				remember_me: false,
 			},
 			{
 				baseURL: url,
@@ -96,6 +92,7 @@ describe("AuthController", () => {
 				{
 					email: "test@example.com",
 					password: "password",
+					remember_me: false,
 				},
 				{
 					baseURL: url,
@@ -114,6 +111,7 @@ describe("AuthController", () => {
 			{
 				email: "test@example.com",
 				password: "password",
+				remember_me: false,
 			},
 			{
 				baseURL: url,

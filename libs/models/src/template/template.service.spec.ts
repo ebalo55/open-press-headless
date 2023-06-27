@@ -1,16 +1,8 @@
-import {
-	authConfig,
-	DATABASE_CONFIG_KEY,
-	DATABASE_CONNECTIONS,
-	DatabaseConfig,
-	databaseConfig,
-	EnvValidation,
-} from "@aetheria/config";
-import { ConfigModule } from "@nestjs/config";
+import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
-import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
+import { AppModule } from "../../../../apps/aetheria-backend/src/app/app.module";
 import { TemplateNameAlreadyUsedErrorFactory, TemplateNotFoundErrorFactory } from "./errors";
 import { Template, TemplateSchema } from "./template.schema";
 import { TemplateService } from "./template.service";
@@ -20,6 +12,11 @@ const template_basic_properties = {
 	name: "test",
 	html: "<h1>test</h1>",
 	css: "h1 { color: red; }",
+	project_data: {
+		assets: [],
+		styles: [],
+		pages: [],
+	},
 };
 
 describe("TemplateService", () => {
@@ -47,28 +44,7 @@ describe("TemplateService", () => {
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
-				ConfigModule.forRoot({
-					isGlobal: true,
-					expandVariables: true,
-					load: [databaseConfig, authConfig],
-					validate: (config: Record<string, any>) => EnvValidation.instance.validateEnv(config),
-				}),
-				MongooseModule.forRootAsync({
-					inject: [DATABASE_CONFIG_KEY],
-					useFactory: async (db_config: DatabaseConfig): Promise<MongooseModuleFactoryOptions> => {
-						return {
-							// connectionName: DATABASE_CONNECTIONS.default,
-							dbName: db_config[DATABASE_CONNECTIONS.default].database,
-							uri:
-								`mongodb://` +
-								`${db_config[DATABASE_CONNECTIONS.default].username}:` +
-								`${db_config[DATABASE_CONNECTIONS.default].password}@` +
-								`${db_config[DATABASE_CONNECTIONS.default].host}:` +
-								`${db_config[DATABASE_CONNECTIONS.default].port}/`,
-						};
-					},
-					connectionName: DATABASE_CONNECTIONS.default,
-				}),
+				AppModule,
 				MongooseModule.forFeature(
 					[
 						{

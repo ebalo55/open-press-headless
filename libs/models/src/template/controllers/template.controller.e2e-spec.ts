@@ -6,7 +6,7 @@ import { getConnectionToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import axios from "axios";
 import { Connection } from "mongoose";
-import { AppModule } from "../app.module";
+import { AppModule } from "../../../../../apps/aetheria-backend/src/app/app.module";
 
 describe("TemplateController", () => {
 	let app: INestApplication,
@@ -24,10 +24,11 @@ describe("TemplateController", () => {
 		});
 
 		const res = await axios.post(
-			`/auth/login`,
+			`${url}/auth/login`,
 			{
 				email: "test@example.com",
 				password: "password",
+				remember_me: false,
 			},
 			{
 				baseURL: url,
@@ -97,6 +98,12 @@ describe("TemplateController", () => {
 						code: "invalid_type",
 					},
 				],
+				project_data: [
+					{
+						message: "Required",
+						code: "invalid_type",
+					},
+				],
 			});
 		}
 	});
@@ -110,6 +117,11 @@ describe("TemplateController", () => {
 				name: "test",
 				html: "<h1>Test</h1>",
 				css: "h1 { color: red; }",
+				project_data: {
+					assets: [],
+					styles: [],
+					pages: [{}],
+				},
 			},
 			{
 				baseURL: url,
@@ -353,7 +365,7 @@ describe("TemplateController", () => {
 		});
 
 		expect(response.status).toBe(200);
-
-		console.log(response.data);
+		expect(response.data.html).toEqual("<h1>Test</h1>");
+		expect(response.data.css).toEqual("h1 { color: red; }");
 	});
 });

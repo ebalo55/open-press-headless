@@ -1,20 +1,8 @@
-import {
-	AUTH_CONFIG_KEY,
-	AuthConfig,
-	authConfig,
-	DATABASE_CONFIG_KEY,
-	DATABASE_CONNECTIONS,
-	DatabaseConfig,
-	databaseConfig,
-	EnvValidation,
-} from "@aetheria/config";
-import { UserModelModule } from "@aetheria/models";
-import { ConfigModule } from "@nestjs/config";
+import { AUTH_CONFIG_KEY, AuthConfig } from "@aetheria/config";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
-import { MongooseModule } from "@nestjs/mongoose";
-import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
 import { PassportModule } from "@nestjs/passport";
 import { Test, TestingModule } from "@nestjs/testing";
+import { AppModule } from "../app.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy, LocalStrategy } from "./strategies";
@@ -25,29 +13,7 @@ describe("AuthService", () => {
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
-				ConfigModule.forRoot({
-					isGlobal: true,
-					cache: true,
-					expandVariables: true,
-					load: [databaseConfig, authConfig],
-					validate: (config: Record<string, any>) => EnvValidation.instance.validateEnv(config),
-				}),
-				MongooseModule.forRootAsync({
-					inject: [DATABASE_CONFIG_KEY],
-					useFactory: async (db_config: DatabaseConfig): Promise<MongooseModuleFactoryOptions> => {
-						return {
-							dbName: db_config[DATABASE_CONNECTIONS.default].database,
-							uri:
-								`mongodb://` +
-								`${db_config[DATABASE_CONNECTIONS.default].username}:` +
-								`${db_config[DATABASE_CONNECTIONS.default].password}@` +
-								`${db_config[DATABASE_CONNECTIONS.default].host}:` +
-								`${db_config[DATABASE_CONNECTIONS.default].port}/`,
-						};
-					},
-					connectionName: DATABASE_CONNECTIONS.default,
-				}),
-				UserModelModule,
+				AppModule,
 				PassportModule,
 				JwtModule.registerAsync({
 					inject: [AUTH_CONFIG_KEY],

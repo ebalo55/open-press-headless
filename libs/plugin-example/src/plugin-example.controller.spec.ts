@@ -8,7 +8,7 @@ describe("ExamplePluginController", () => {
 	beforeEach(async () => {
 		const module = await Test.createTestingModule({
 			providers: [PluginExampleService],
-			controllers: [PluginExampleService],
+			controllers: [PluginExampleController],
 		}).compile();
 
 		controller = module.get(PluginExampleController);
