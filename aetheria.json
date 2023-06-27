@@ -1,12 +1,12 @@
 {
-  "plugins": [
-    {
-      "id": "@aetheria/plugin-tailwind-classes-builder",
-      "resolve": "./dist/libs/plugin-tailwind-classes-builder"
-    },
-    {
-      "id": "@aetheria/plugin-example",
-      "resolve": "./dist/libs/plugin-example"
-    }
-  ]
+	"plugins": [
+		{
+			"id": "@aetheria/plugin-tailwind-classes-builder",
+			"resolve": "./dist/libs/plugin-tailwind-classes-builder/plugin-tailwind-classes-builder"
+		},
+		{
+			"id": "@aetheria/plugin-example",
+			"resolve": "./dist/libs/plugin-example"
+		}
+	]
 }
