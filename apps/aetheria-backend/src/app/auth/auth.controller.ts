@@ -1,7 +1,9 @@
 import {
 	AuthControllerAfterLoginEvent,
 	AuthControllerAfterProfileEvent,
+	AuthControllerAfterRevalidateEvent,
 	AuthControllerBeforeProfileEvent,
+	AuthControllerBeforeRevalidateEvent,
 	AuthControllerBeforeValidationEvent,
 } from "@aetheria/backend-interfaces";
 import { LoginRequestDto, LoginRequestValidationSchema } from "@aetheria/backend-interfaces/lib/dtos/login-request.dto";
@@ -52,10 +54,31 @@ export class AuthController {
 	async profile(@RestUser() user: UserDocument): Promise<UserEntity> {
 		this._event_emitter.emit(AUTH_CONTROLLER_EVENTS.before_profile, { user } as AuthControllerBeforeProfileEvent);
 
-		return tap(new UserEntity(user.toObject()), (entity) => {
+		return tap(new UserEntity(user), (entity) => {
 			this._event_emitter.emit(AUTH_CONTROLLER_EVENTS.after_profile, {
 				entity,
 			} as AuthControllerAfterProfileEvent);
+		});
+	}
+
+	/**
+	 * Returns the user's profile.
+	 * @param {UserDocument} user The user document.
+	 * @returns {Promise<User>} The user profile.
+	 */
+	@PublicEndpoint(false)
+	@UseGuards(JwtAuthGuard)
+	@Get("revalidate")
+	async revalidate(@RestUser() user: UserDocument): Promise<{ can_revalidate: boolean }> {
+		this._event_emitter.emit(AUTH_CONTROLLER_EVENTS.before_revalidate, {
+			user,
+		} as AuthControllerBeforeRevalidateEvent);
+
+		return tap({ can_revalidate: true }, (status) => {
+			this._event_emitter.emit(AUTH_CONTROLLER_EVENTS.after_revalidate, {
+				user,
+				status,
+			} as AuthControllerAfterRevalidateEvent);
 		});
 	}
 }

@@ -29,6 +29,8 @@ export const AUTH_CONTROLLER_EVENTS = {
 	after_login: "hook.auth.login.after",
 	before_profile: "hook.auth.profile.before",
 	after_profile: "hook.auth.profile.after",
+	before_revalidate: "hook.auth.revalidate.before",
+	after_revalidate: "hook.auth.revalidate.after",
 } as const;
 
 export const PASSPORT_JWT_STRATEGY_EVENTS = {
