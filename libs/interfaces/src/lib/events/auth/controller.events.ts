@@ -17,3 +17,12 @@ export type AuthControllerBeforeProfileEvent = {
 export type AuthControllerAfterProfileEvent = {
 	entity: UserEntity;
 };
+
+export type AuthControllerBeforeRevalidateEvent = {
+	user: UserDocument;
+};
+
+export type AuthControllerAfterRevalidateEvent = {
+	user: UserDocument;
+	status: { can_revalidate: boolean };
+};
