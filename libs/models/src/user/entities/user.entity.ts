@@ -1,6 +1,6 @@
-import { MongoseId } from "@aetheria/backend-interfaces";
 import { Exclude } from "class-transformer";
 import { DateTime } from "luxon";
+import { UserDocument } from "../user.schema";
 
 export class UserEntity {
 	id!: string;
@@ -16,7 +16,7 @@ export class UserEntity {
 	@Exclude()
 	updated_at!: DateTime;
 
-	constructor(user: Partial<UserEntity & MongoseId>) {
+	constructor(user: Partial<UserDocument>) {
 		Object.assign(this, {
 			id: user._id?.toHexString(),
 			name: user.name,
