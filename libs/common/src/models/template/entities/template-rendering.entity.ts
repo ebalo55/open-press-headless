@@ -1,6 +1,7 @@
 import { MongoseId } from "@aetheria/backend-interfaces";
 import { PickType } from "@nestjs/mapped-types";
-import { TemplateDocument, TemplateEntity } from "../";
+import { TemplateEntity } from "../entities";
+import { TemplateDocument } from "../template.schema";
 
 export class TemplateRenderingEntity extends PickType(TemplateEntity, ["html", "css"] as const) {
 	scripts?: string;

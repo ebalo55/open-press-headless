@@ -1,4 +1,4 @@
-import { TemplateDocument } from "../../";
+import { TemplateDocument } from "../../template.schema";
 
 export type TemplateServiceFindAllBeforeEvent = Record<string, never>;
 

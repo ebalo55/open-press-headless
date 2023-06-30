@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { DateTime } from "luxon";
 import { HydratedDocument, Model } from "mongoose";
-import { mongooseLuxonSetter } from "../../";
+import { mongooseLuxonSetter } from "../../schemas";
 
 @Schema()
 export class Template {

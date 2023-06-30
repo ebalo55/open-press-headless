@@ -1,22 +1,14 @@
-import { AppModule, UserService } from "@aetheria/common";
+import { bootstrap, UserService } from "@aetheria/common";
 import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { faker } from "@faker-js/faker";
 import { INestApplication } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { getConnectionToken } from "@nestjs/mongoose";
-import { Test, TestingModule } from "@nestjs/testing";
 import axios from "axios";
 import { Connection } from "mongoose";
-import { LocalStrategy } from "./strategies";
 
 describe("AuthController", () => {
-	let app: INestApplication,
-		local_strategy: LocalStrategy,
-		user_service: UserService,
-		jwt_service: JwtService,
-		url: string,
-		module: TestingModule,
-		connection: Connection;
+	let app: INestApplication, user_service: UserService, jwt_service: JwtService, url: string, connection: Connection;
 
 	const makeUser = (email: string, password: string) => {
 		return user_service.create({
@@ -27,21 +19,19 @@ describe("AuthController", () => {
 	};
 
 	beforeAll(async () => {
-		module = await Test.createTestingModule({
-			imports: [AppModule],
-		}).compile();
+		app = (await bootstrap({
+			enable_native_logging: false,
+			enable_error_logging: false,
+		})) as INestApplication;
 
-		local_strategy = module.get<LocalStrategy>(LocalStrategy);
-		user_service = module.get<UserService>(UserService);
-		jwt_service = module.get<JwtService>(JwtService);
-
-		app = module.createNestApplication();
-		await app.listen(3000);
 		url = await app.getUrl();
+
+		user_service = app.get<UserService>(UserService);
+		jwt_service = app.get<JwtService>(JwtService);
 	});
 
 	beforeEach(async () => {
-		connection = module.get<Connection>(getConnectionToken(DATABASE_CONNECTIONS.default));
+		connection = app.get<Connection>(getConnectionToken(DATABASE_CONNECTIONS.default));
 		await connection.dropDatabase();
 	});
 

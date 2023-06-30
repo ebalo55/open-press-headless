@@ -2,9 +2,10 @@ import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
-import { AppModule } from "../../";
-import { Template, TemplateSchema, TemplateService } from "./";
+import { AppModule } from "../../bootstrapper";
 import { TemplateNameAlreadyUsedErrorFactory, TemplateNotFoundErrorFactory } from "./errors";
+import { Template, TemplateSchema } from "./template.schema";
+import { TemplateService } from "./template.service";
 
 const sample_id = "507f191e810c19729de860ea";
 const template_basic_properties = {

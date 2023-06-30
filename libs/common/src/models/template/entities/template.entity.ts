@@ -1,5 +1,5 @@
 import { MongoseId } from "@aetheria/backend-interfaces";
-import { TemplateDocument } from "../";
+import { TemplateDocument } from "../template.schema";
 
 export class TemplateEntity {
 	id!: string;

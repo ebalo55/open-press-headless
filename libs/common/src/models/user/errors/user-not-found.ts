@@ -1,4 +1,4 @@
-import { BaseError, BaseErrorType } from "../../../";
+import { BaseError, BaseErrorType } from "../../../errors";
 
 /**
  * User not found error

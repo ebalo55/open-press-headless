@@ -1,4 +1,4 @@
-import { BaseError, BaseErrorType } from "../../../";
+import { BaseError, BaseErrorType } from "../../../errors";
 
 /**
  * Error thrown when a user tries to update or register with an email already in use.

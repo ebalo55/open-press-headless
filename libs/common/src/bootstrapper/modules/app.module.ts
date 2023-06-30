@@ -1,4 +1,3 @@
-import { TemplateModule } from "@aetheria/common";
 import {
 	authConfig,
 	DATABASE_CONFIG_KEY,
@@ -11,6 +10,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { MongooseModule, MongooseModuleFactoryOptions } from "@nestjs/mongoose";
+import { TemplateModule } from "../../models";
 
 @Module({
 	imports: [

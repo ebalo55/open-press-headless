@@ -6,12 +6,12 @@ import { PassportStrategy } from "@nestjs/passport";
 import { JwtPayload } from "jsonwebtoken";
 import { tap } from "lodash";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import { PASSPORT_JWT_STRATEGY_EVENTS } from "../constants";
 import {
 	PassportJwtStrategyBeforeValidationEvent,
 	PassportJwtStrategyValidationFailedEvent,
 	PassportJwtStrategyValidationSuccessEvent,
-} from "../";
-import { PASSPORT_JWT_STRATEGY_EVENTS } from "../constants";
+} from "../events";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

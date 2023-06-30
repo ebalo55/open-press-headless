@@ -3,13 +3,13 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
+import { AuthService } from "../auth.service";
+import { PASSPORT_LOCAL_STRATEGY_EVENTS } from "../constants";
 import {
 	PassportLocalStrategyBeforeValidationEvent,
 	PassportLocalStrategyValidationFailedEvent,
 	PassportLocalStrategyValidationSuccessEvent,
-} from "../";
-import { AuthService } from "../auth.service";
-import { PASSPORT_LOCAL_STRATEGY_EVENTS } from "../constants";
+} from "../events";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

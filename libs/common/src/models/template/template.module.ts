@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
-import { TemplateController } from "./controllers";
-import { TemplateModelModule } from "./template-model.module";
+import { TemplateController, TemplateModelModule } from "./";
 
 @Module({
 	imports: [TemplateModelModule],

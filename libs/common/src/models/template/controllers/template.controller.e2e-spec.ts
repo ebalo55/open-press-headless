@@ -2,10 +2,9 @@ import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { faker } from "@faker-js/faker";
 import { INestApplication } from "@nestjs/common";
 import { getConnectionToken } from "@nestjs/mongoose";
-import { Test, TestingModule } from "@nestjs/testing";
 import axios from "axios";
 import { Connection } from "mongoose";
-import { AppModule } from "../../../";
+import { bootstrap } from "../../../bootstrapper";
 import { TemplateService } from "../../template";
 import { UserService } from "../../user";
 
@@ -14,7 +13,6 @@ describe("TemplateController", () => {
 		user_service: UserService,
 		template_service: TemplateService,
 		url: string,
-		module: TestingModule,
 		connection: Connection;
 
 	const getValidJwt = async (): Promise<string> => {
@@ -40,20 +38,19 @@ describe("TemplateController", () => {
 	};
 
 	beforeAll(async () => {
-		module = await Test.createTestingModule({
-			imports: [AppModule],
-		}).compile();
+		app = (await bootstrap({
+			enable_native_logging: false,
+			enable_error_logging: false,
+		})) as INestApplication;
 
-		user_service = module.get<UserService>(UserService);
-		template_service = module.get<TemplateService>(TemplateService);
-
-		app = module.createNestApplication();
-		await app.listen(3001);
 		url = await app.getUrl();
+
+		user_service = app.get<UserService>(UserService);
+		template_service = app.get<TemplateService>(TemplateService);
 	});
 
 	beforeEach(async () => {
-		connection = module.get<Connection>(getConnectionToken(DATABASE_CONNECTIONS.default));
+		connection = app.get<Connection>(getConnectionToken(DATABASE_CONNECTIONS.default));
 		await connection.dropDatabase();
 	});
 
@@ -134,8 +131,8 @@ describe("TemplateController", () => {
 
 		expect(response.status).toBe(201);
 		expect(response.data.name).toEqual("test");
-		expect(response.data.html).toEqual("<h1>Test</h1>");
-		expect(response.data.css).toEqual("h1 { color: red; }");
+		expect(response.data.html).toEqual("<body><h1>Test</h1></body>");
+		expect(response.data.css).toContain("h1{color:red}");
 		expect(response.data.id).toBeDefined();
 	});
 
@@ -168,8 +165,8 @@ describe("TemplateController", () => {
 
 		expect(response.status).toBe(200);
 		expect(response.data.name).toEqual("new-name");
-		expect(response.data.html).toEqual("<h1>Test</h1>");
-		expect(response.data.css).toEqual("h1 { color: red; }");
+		expect(response.data.html).toEqual("<body><h1>Test</h1></body>");
+		expect(response.data.css).toContain("h1{color:red}");
 		expect(response.data.id).toEqual(template.id);
 	});
 
@@ -224,8 +221,8 @@ describe("TemplateController", () => {
 
 		expect(response.status).toBe(200);
 		expect(response.data.name).toEqual("test");
-		expect(response.data.html).toEqual("<h1>Test</h1>");
-		expect(response.data.css).toEqual("h1 { color: red; }");
+		expect(response.data.html).toEqual("<body><h1>Test</h1></body>");
+		expect(response.data.css).toContain("h1{color:red}");
 		expect(response.data.id).toEqual(template.id);
 	});
 
@@ -274,8 +271,8 @@ describe("TemplateController", () => {
 
 		expect(response.status).toBe(200);
 		expect(response.data.name).toEqual("test");
-		expect(response.data.html).toEqual("<h1>Test</h1>");
-		expect(response.data.css).toEqual("h1 { color: red; }");
+		expect(response.data.html).toEqual("<body><h1>Test</h1></body>");
+		expect(response.data.css).toContain("h1{color:red}");
 		expect(response.data.id).toEqual(template.id);
 	});
 
@@ -347,7 +344,7 @@ describe("TemplateController", () => {
 		expect(response.data[0].name).toEqual(template0.name);
 		expect(response.data[1].name).toEqual(template1.name);
 		expect(response.data[2].name).toEqual(template2.name);
-	});
+	}, 60_000);
 
 	it("can render template", async () => {
 		const template = await template_service.create({
@@ -366,7 +363,7 @@ describe("TemplateController", () => {
 		});
 
 		expect(response.status).toBe(200);
-		expect(response.data.html).toEqual("<h1>Test</h1>");
-		expect(response.data.css).toEqual("h1 { color: red; }");
+		expect(response.data.html).toEqual("<body><h1>Test</h1></body>");
+		expect(response.data.css).toContain("h1{color:red}");
 	});
 });

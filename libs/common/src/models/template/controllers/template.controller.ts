@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { z } from "zod";
-import { MongoIdSchema, PublicEndpoint, validate, validateMany } from "../../../";
+import { PublicEndpoint } from "../../../decorators";
+import { MongoIdSchema, validate, validateMany } from "../../../validation";
 import { TemplateEntity, TemplateRenderingEntity } from "../entities";
 import {
 	CreateTemplateDTO,

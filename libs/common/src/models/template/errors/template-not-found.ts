@@ -1,4 +1,4 @@
-import { BaseError, BaseErrorType } from "../../../";
+import { BaseError, BaseErrorType } from "../../../errors";
 
 /**
  * Error thrown when a template name is already used.

@@ -12,7 +12,7 @@ import { getConnectionToken, MongooseModule } from "@nestjs/mongoose";
 import { MongooseModuleFactoryOptions } from "@nestjs/mongoose/dist/interfaces/mongoose-options.interface";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
-import { HashModule, HashService } from "../../";
+import { HashModule, HashService } from "../../hash";
 import { UserNotFoundErrorFactory, VerificationEmailSentErrorFactory } from "./errors";
 import { User, UserSchema } from "./user.schema";
 import { UserService } from "./user.service";

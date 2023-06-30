@@ -2,7 +2,7 @@ import { DATABASE_CONNECTIONS } from "@aetheria/config";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { DateTime } from "luxon";
-import { HashService } from "../../";
+import { HashService } from "../../hash";
 import { UserNotFoundErrorFactory, VerificationEmailSentErrorFactory } from "./errors";
 import { CreateUserDTO, UpdateUserDTO } from "./user.dto";
 import { User, UserDocument, UserModel } from "./user.schema";

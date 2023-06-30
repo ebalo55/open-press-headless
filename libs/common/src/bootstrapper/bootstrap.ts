@@ -17,7 +17,9 @@ export async function bootstrap(configuration?: BootstrapOptions) {
 		});
 	}
 
-	Logger.log("🚀 Bootstrapping application...");
+	if (configuration?.enable_native_logging) {
+		Logger.log("🚀 Bootstrapping application...");
+	}
 
 	const app = await NestFactory.create(await makeRootModule(AppModule, configuration), {
 		logger: configuration && configuration.enable_native_logging ? new Logger() : false,
@@ -38,7 +40,9 @@ export async function bootstrap(configuration?: BootstrapOptions) {
 	const port = process.env.PORT || 3000;
 	await app.listen(port);
 
-	Logger.log(`🚀 Application is running on: http://localhost:${port}/`);
+	if (configuration?.enable_native_logging) {
+		Logger.log(`🚀 Application is running on: http://localhost:${port}/`);
+	}
 
 	return app;
 }
