@@ -1,4 +1,4 @@
-import { AetheriaPlugin } from "@aetheria/backend-interfaces/lib/configuration/aetheria-plugin";
+import { AetheriaPlugin } from "./aetheria-plugin";
 
 export interface AetheriaConfiguration {
 	plugins: AetheriaPlugin[];

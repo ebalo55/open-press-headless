@@ -1,11 +1,11 @@
 import {
+	makeRandomString,
 	TEMPLATE_SERVICE_EVENTS,
 	TemplateDocument,
 	TemplateService,
 	TemplateServiceCreationAfterEvent,
 	TemplateServiceUpdateAfterEvent,
-} from "@aetheria/models";
-import { makeRandomString } from "@aetheria/utility";
+} from "@aetheria/common";
 import { Injectable, Logger } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { minify } from "html-minifier";

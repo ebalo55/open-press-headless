@@ -1,10 +1,10 @@
-import { Module } from "@nestjs/common";
-import { AppModule } from "../../aetheria-backend/src/app/app.module";
+import { AppModule } from "@aetheria/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { PluginBase } from "./plugin/base";
 import { Seed } from "./seed/seed";
 
 @Module({
-	imports: [AppModule],
+	imports: [forwardRef(() => AppModule)],
 	providers: [Seed, ...PluginBase.registerWithSubCommands()],
 })
 export class CliModule {}

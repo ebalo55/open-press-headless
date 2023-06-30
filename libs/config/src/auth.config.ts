@@ -1,6 +1,6 @@
 import { IAuthConfig } from "@aetheria/backend-interfaces";
 import { ConfigType, registerAs } from "@nestjs/config";
-import * as process from "process";
+import * as process from "node:process";
 import { z } from "zod";
 
 /* istanbul ignore file */

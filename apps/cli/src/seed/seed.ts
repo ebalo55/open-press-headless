@@ -1,4 +1,4 @@
-import { TemplateService, UserService } from "@aetheria/models";
+import { TemplateService, UserService } from "@aetheria/common";
 import { Logger } from "@nestjs/common";
 import * as Listr from "listr";
 import { ListrTaskResult } from "listr";

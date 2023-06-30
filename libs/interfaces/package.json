@@ -1,0 +1,45 @@
+{
+	"name": "@aetheria/backend-interfaces",
+	"version": "1.0.0",
+	"type": "commonjs",
+	"description": "Aetheria backend interfaces",
+	"author": {
+		"name": "Override",
+		"email": "hello@override.sh",
+		"url": "https://override.sh"
+	},
+	"homepage": "https://aetheria-docs.override.sh/packages/support",
+	"bugs": {
+		"url": "https://github.com/override-sh/aetheria-headless/issues"
+	},
+	"license": "GPL-2.0",
+	"publishConfig": {
+		"access": "public",
+		"tag": "latest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/override-sh/aetheria-headless.git",
+		"directory": "libs/interfaces"
+	},
+	"keywords": [
+		"override",
+		"aetheria",
+		"headless",
+		"interfaces",
+		"es6",
+		"nestjs",
+		"nest",
+		"cms"
+	],
+	"exports": {
+		".": "./src/index.js",
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"jsonwebtoken": "^9.0.0",
+		"mongoose": "^7.2.3",
+		"tslib": "^2.5.3",
+		"zod": "^3.21.4"
+	}
+}

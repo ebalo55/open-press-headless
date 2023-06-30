@@ -1,9 +1,8 @@
+import { AppModule, TemplateService } from "@aetheria/common";
 import { DATABASE_CONNECTIONS } from "@aetheria/config";
-import { TemplateService } from "@aetheria/models";
 import { getConnectionToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Connection } from "mongoose";
-import { AppModule } from "../../../apps/aetheria-backend/src/app/app.module";
 import { PluginTailwindClassesBuilderModule } from "./plugin-tailwind-classes-builder.module";
 import { PluginTailwindClassesBuilderService } from "./plugin-tailwind-classes-builder.service";
 

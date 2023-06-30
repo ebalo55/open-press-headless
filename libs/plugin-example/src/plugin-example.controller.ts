@@ -1,4 +1,4 @@
-import { PublicEndpoint } from "@aetheria/support";
+import { PublicEndpoint } from "@aetheria/common";
 import { Controller, Get } from "@nestjs/common";
 import { PluginExampleService } from "./plugin-example.service";
 

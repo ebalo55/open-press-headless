@@ -1,8 +1,8 @@
-import { PluginExampleModule } from "@aetheria/plugin-example/plugin-example.module";
+import { AppModule } from "@aetheria/common";
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import axios from "axios";
-import { AppModule } from "../../../apps/aetheria-backend/src/app/app.module";
+import { PluginExampleModule } from "./plugin-example.module";
 
 describe("ExamplePluginController", () => {
 	let app: INestApplication, url: string;

@@ -1,6 +1,5 @@
-import { safeValidate } from "@aetheria/utility";
-import { readdirSync } from "fs";
-import { resolve } from "path";
+import { readdirSync } from "node:fs";
+import { resolve } from "node:path";
 import { ZodSchema } from "zod";
 
 /**
@@ -128,7 +127,7 @@ export class EnvValidation {
 	public validateEnv(config: Record<string, any>): Record<string, unknown> {
 		this.resolveConfigValidationSchema().forEach((schema) => {
 			// validate the config object against the validation schema
-			const result = safeValidate(config, schema);
+			const result = schema.safeParse(config);
 
 			// if an error was found, re-throw it
 			if (!result.success) {

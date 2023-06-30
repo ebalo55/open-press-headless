@@ -1,6 +1,10 @@
 {
 	"plugins": [
 		{
+			"id": "@aetheria/plugin-auth",
+			"resolve": "./dist/libs/plugin-auth"
+		},
+		{
 			"id": "@aetheria/plugin-tailwind-classes-builder",
 			"resolve": "./dist/libs/plugin-tailwind-classes-builder/plugin-tailwind-classes-builder"
 		},

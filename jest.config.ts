@@ -15,9 +15,7 @@ const config: Config = {
 	moduleNameMapper: {
 		"^@aetheria/config(|/.*)$": "<rootDir>/libs/config/src/$1",
 		"^@aetheria/plugin-example(|/.*)$": "<rootDir>/libs/plugin-example/src/$1",
-		"^@aetheria/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-		"^@aetheria/support(|/.*)$": "<rootDir>/libs/support/src/$1",
-		"^@aetheria/utility(|/.*)$": "<rootDir>/libs/utility/src/$1",
+		"^@aetheria/common(|/.*)$": "<rootDir>/libs/common/src/$1",
 		"^@aetheria/backend-interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
 	},
 };

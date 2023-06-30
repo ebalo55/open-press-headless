@@ -1,4 +1,4 @@
-import { TemplateModule } from "@aetheria/models";
+import { TemplateModule } from "@aetheria/common";
 import { Module } from "@nestjs/common";
 import { PluginTailwindClassesBuilderService } from "./plugin-tailwind-classes-builder.service";
 

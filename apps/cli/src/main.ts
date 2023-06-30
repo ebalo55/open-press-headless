@@ -1,3 +1,7 @@
-import { bootstrap } from "../../aetheria-backend/src/bootstrap";
+import { bootstrap } from "@aetheria/common";
 
-bootstrap(true);
+bootstrap({
+	runas_cli: true,
+	enable_native_logging: true,
+	enable_error_logging: true,
+});

@@ -1,68 +1,44 @@
 {
-  "compilerOptions": {
-    "module": "CommonJS",
-    "target": "ES6",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "strictNullChecks": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictBindCallApply": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@aetheria/config": [
-	      "libs/config/src"
-      ],
-	    "@aetheria/config/*": [
-		    "libs/config/src/*"
-	    ],
-	    "@aetheria/plugin-example": [
-		    "libs/plugin-example/src"
-	    ],
-	    "@aetheria/plugin-example/*": [
-		    "libs/plugin-example/src/*"
-	    ],
-	    "@aetheria/models": [
-		    "libs/models/src"
-	    ],
-	    "@aetheria/models/*": [
-		    "libs/models/src/*"
-	    ],
-	    "@aetheria/support": [
-		    "libs/support/src"
-	    ],
-	    "@aetheria/support/*": [
-		    "libs/support/src/*"
-	    ],
-	    "@aetheria/utility": [
-		    "libs/utility/src"
-	    ],
-	    "@aetheria/utility/*": [
-		    "libs/utility/src/*"
-	    ],
-	    "@aetheria/backend-interfaces": [
-		    "libs/interfaces/src"
-	    ],
-	    "@aetheria/backend-interfaces/*": [
-		    "libs/interfaces/src/*"
-	    ],
-	    "@aetheria/plugin-tailwind-classes-builder": [
-		    "libs/plugin-tailwind-classes-builder/src"
-	    ],
-	    "@aetheria/plugin-tailwind-classes-builder/*": [
-		    "libs/plugin-tailwind-classes-builder/src/*"
-	    ]
-    }
-  }
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "ES6",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"importHelpers": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"incremental": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"strictNullChecks": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"strictBindCallApply": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"paths": {
+			"@aetheria/backend-interfaces": [
+				"libs/interfaces/src"
+			],
+			"@aetheria/config": [
+				"libs/config/src"
+			],
+			"@aetheria/plugin-auth": [
+				"libs/plugin-auth/src"
+			],
+			"@aetheria/plugin-example": [
+				"libs/plugin-example/src"
+			],
+			"@aetheria/plugin-tailwind-classes-builder": [
+				"libs/plugin-tailwind-classes-builder/src"
+			],
+			"@aetheria/common": [
+				"libs/common/src"
+			]
+		}
+	}
 }
