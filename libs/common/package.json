@@ -1,5 +1,5 @@
 {
-	"name": "@aetheria/support",
+	"name": "@aetheria/common",
 	"version": "1.0.0",
 	"type": "commonjs",
 	"description": "Support methods and utilities for Aetheria Headless",
@@ -8,7 +8,7 @@
 		"email": "hello@override.sh",
 		"url": "https://override.sh"
 	},
-	"homepage": "https://aetheria-docs.override.sh/packages/support",
+	"homepage": "https://aetheria-docs.override.sh/packages/common",
 	"bugs": {
 		"url": "https://github.com/override-sh/aetheria-headless/issues"
 	},
