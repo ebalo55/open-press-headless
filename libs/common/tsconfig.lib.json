@@ -5,7 +5,7 @@
     "outDir": "../../dist/libs/support"
   },
   "include": [
-    "src/**/*"
+    "**/*"
   ],
   "exclude": [
     "node_modules",
