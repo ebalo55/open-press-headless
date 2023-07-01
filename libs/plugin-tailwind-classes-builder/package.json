@@ -2,7 +2,10 @@
 	"name": "@aetheria/plugin-tailwind-classes-builder",
 	"version": "1.0.0",
 	"aetheria": {
-		"assets": []
+		"assets": [
+			"README.md"
+		],
+		"reference_commit": "963158a75dd1830f33ec49612bdba1fe02cada43"
 	},
 	"type": "commonjs",
 	"description": "Aetheria tailwind plugin to enable tailwind classes and minification in templates",
