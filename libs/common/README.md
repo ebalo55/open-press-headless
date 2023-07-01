@@ -93,7 +93,8 @@ Want some quick links? Here are some useful places to get started:
 
 ## License
 
-📜 This package is [MIT licensed](https://github.com/aetheria-io/aetheria/blob/main/LICENSE).
+📜 This package
+is [GPL-2.0 licensed](https://github.com/override-sh/aetheria-headless/blob/feature/plugin-loader/LICENSE).
 
 ## Get Started Now!
 
