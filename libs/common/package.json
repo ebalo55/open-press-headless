@@ -20,7 +20,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/override-sh/aetheria-headless.git",
-		"directory": "libs/support"
+		"directory": "libs/common"
 	},
 	"keywords": [
 		"override",
@@ -54,5 +54,11 @@
 		"mongoose": "^7.2.3",
 		"tslib": "^2.5.3",
 		"zod": "^3.21.4"
+	},
+	"aetheria": {
+		"assets": [
+			"README.md"
+		],
+		"reference_commit": "7b31f86769300f1e2b332dadb1df1c71960fd472"
 	}
 }
