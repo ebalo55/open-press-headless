@@ -52,9 +52,11 @@ export class TemplateService {
 		document.created_at = document.updated_at = DateTime.now();
 
 		document = await document.save();
+
 		await this._event_emitter.emitAsync(TEMPLATE_SERVICE_EVENTS.creation_after, {
 			document,
 		} as TemplateServiceCreationAfterEvent);
+
 		return document;
 	}
 
@@ -85,9 +87,11 @@ export class TemplateService {
 		template.updated_at = DateTime.now();
 
 		template = await template.save();
+
 		await this._event_emitter.emitAsync(TEMPLATE_SERVICE_EVENTS.update_after, {
 			document: template,
 		} as TemplateServiceUpdateAfterEvent);
+
 		return template;
 	}
 
@@ -109,9 +113,11 @@ export class TemplateService {
 		}
 
 		template = await template.deleteOne();
+
 		await this._event_emitter.emitAsync(TEMPLATE_SERVICE_EVENTS.delete_after, {
 			document: template,
 		} as TemplateServiceDeleteAfterEvent);
+
 		return template;
 	}
 
@@ -149,9 +155,11 @@ export class TemplateService {
 		);
 
 		const documents = await this.model.find();
+
 		await this._event_emitter.emitAsync(TEMPLATE_SERVICE_EVENTS.find_all_after, {
 			documents,
 		} as TemplateServiceFindAllAfterEvent);
+
 		return documents;
 	}
 
