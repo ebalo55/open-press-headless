@@ -1,6 +1,6 @@
 {
 	"name": "@aetheria/plugin-tailwind-classes-builder",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"aetheria": {
 		"assets": [
 			"README.md"
