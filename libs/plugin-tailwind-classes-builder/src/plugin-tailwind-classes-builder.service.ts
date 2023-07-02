@@ -274,6 +274,10 @@ export class PluginTailwindClassesBuilderService {
 				minified_css += data.toString();
 			});
 
+			child.stderr.on("data", (data) => {
+				Logger.warn(data.toString(), "PluginTailwindClassesBuilderService");
+			});
+
 			// log errors and fail if the child process fails
 			/* istanbul ignore next */
 			child.on("error", (err) => {
@@ -336,6 +340,10 @@ export class PluginTailwindClassesBuilderService {
 			// intercept stdout aka the generated css
 			child.stdout.on("data", (data) => {
 				generated_css += data.toString();
+			});
+
+			child.stderr.on("data", (data) => {
+				Logger.warn(data.toString(), "PluginTailwindClassesBuilderService");
 			});
 
 			// log errors and fail if the child process fails
