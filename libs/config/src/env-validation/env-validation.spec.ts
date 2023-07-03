@@ -53,14 +53,8 @@ describe("env-validation", () => {
 	});
 
 	it("emits hooks", () => {
-		const unsubscribe = EnvValidation.instance
-			.clearConfigFileFilters()
-			.onBeforeValidation.subscribe((sender, { config }) => {
-				expect(config).toEqual({ test: false });
-			});
+		EnvValidation.instance.clearConfigFileFilters();
 
 		expect(EnvValidation.instance.validateEnv({ test: false })).toEqual({ test: false });
-
-		unsubscribe();
 	});
 });

@@ -1,6 +1,6 @@
+import { IAuthConfig } from "@aetheria/backend-interfaces";
 import { ConfigType, registerAs } from "@nestjs/config";
-import { IAuthConfig } from "@open-press/backend-interfaces";
-import * as process from "process";
+import * as process from "node:process";
 import { z } from "zod";
 
 /* istanbul ignore file */
@@ -19,9 +19,9 @@ export const authConfig = registerAs(
 			public_key: process.env["JWT_PUBLIC_KEY"],
 			private_key: process.env["JWT_PRIVATE_KEY"],
 			algorithm: (process.env["JWT_ALGORITHM"] as any) || "HS512",
-			audience: process.env["JWT_AUDIENCE"] || "open-press",
+			audience: process.env["JWT_AUDIENCE"] || "aetheria",
 			expires_in: process.env["JWT_EXPIRES_IN"] || "2h",
-			issuer: process.env["JWT_ISSUER"] || "open-press",
+			issuer: process.env["JWT_ISSUER"] || "aetheria",
 		},
 	})
 );
@@ -51,7 +51,7 @@ export type AuthConfig = ConfigType<typeof authConfig>;
  */
 export const validationSchema = z
 	.object({
-		BCRYPT_HASHING_ITERATION: z.number().min(1).optional(),
+		BCRYPT_HASHING_ITERATION: z.coerce.number().min(1).optional(),
 		BCRYPT_ALGORITHM_VERSION: z.enum(["a", "b"]).optional(),
 
 		JWT_ENCRYPTION: z.enum(["symmetric", "asymmetric"]),

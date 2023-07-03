@@ -1,0 +1,52 @@
+{
+	"name": "@aetheria/plugin-example",
+	"version": "1.2.0",
+	"aetheria": {
+		"assets": [
+			"README.md"
+		],
+		"reference_commit": "d821afd3ff0cf2979b49e6204c359aef2af8af7d"
+	},
+	"type": "commonjs",
+	"description": "Aetheria example plugin",
+	"author": {
+		"name": "Override",
+		"email": "hello@override.sh",
+		"url": "https://override.sh"
+	},
+	"homepage": "https://aetheria-docs.override.sh/packages/plugin-example",
+	"bugs": {
+		"url": "https://github.com/override-sh/aetheria-headless/issues"
+	},
+	"license": "GPL-2.0",
+	"publishConfig": {
+		"access": "public",
+		"tag": "latest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/override-sh/aetheria-headless.git",
+		"directory": "libs/plugin-example"
+	},
+	"keywords": [
+		"override",
+		"aetheria",
+		"headless",
+		"es6",
+		"nestjs",
+		"nest",
+		"cms",
+		"plugin",
+		"aetheria-plugin",
+		"example"
+	],
+	"exports": {
+		".": "./src/index.js",
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@aetheria/common": "^1.0.0",
+		"@nestjs/common": "^9.0.0",
+		"tslib": "^2.5.3"
+	}
+}

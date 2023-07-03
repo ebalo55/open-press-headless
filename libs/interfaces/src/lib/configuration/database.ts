@@ -1,5 +1,3 @@
-import "server-only";
-
 /**
  * @description This is the interface of the database connection object.
  */

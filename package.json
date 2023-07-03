@@ -1,5 +1,5 @@
 {
-	"name": "@open-press/backend",
+	"name": "@aetheria/backend",
 	"version": "0.0.1",
 	"description": "",
 	"author": "",
@@ -8,11 +8,13 @@
 	"type": "commonjs",
 	"scripts": {
 		"build": "nest build",
-		"format": "prettier --write \"src/**/*.ts\" \"libs/**/*.ts\"",
+		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
+		"cli:seed": "nest start cli -- seed",
+		"cli:build:plugins": "nest start cli -- plugin build",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
 		"test": "jest --forceExit",
 		"test:watch": "jest --watch",
@@ -20,27 +22,43 @@
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
 	},
 	"dependencies": {
+		"@aetheria/common": "^1.0.3",
 		"@nestjs/common": "^9.0.0",
 		"@nestjs/config": "^3.0.0",
 		"@nestjs/core": "^9.0.0",
+		"@nestjs/event-emitter": "^2.0.0",
 		"@nestjs/jwt": "^10.1.0",
 		"@nestjs/mapped-types": "^1.2.2",
 		"@nestjs/mongoose": "^9.2.2",
 		"@nestjs/passport": "^10.0.0",
 		"@nestjs/platform-express": "^9.4.3",
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/forms": "^0.5.3",
+		"@tailwindcss/typography": "^0.5.9",
+		"autoprefixer": "^10.4.14",
 		"bcrypt": "^5.1.0",
 		"class-transformer": "^0.5.1",
+		"cli-table3": "^0.6.3",
+		"cssnano": "^6.0.1",
+		"express": "^4.18.2",
+		"html-minifier": "^4.0.0",
+		"jsdom": "^22.1.0",
 		"jsonwebtoken": "^9.0.0",
+		"listr": "^0.14.3",
 		"lodash": "^4.17.21",
 		"luxon": "^3.3.0",
 		"mongoose": "^7.2.3",
+		"nest-commander": "^3.7.1",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.1",
 		"passport-local": "^1.0.0",
+		"postcss": "^8.4.24",
+		"postcss-cli": "^10.1.0",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0",
-		"strongly-typed-events": "^3.0.9",
+		"tailwindcss": "^3.3.2",
 		"tslib": "^2.5.3",
+		"winston": "^3.9.0",
 		"zod": "^3.21.4"
 	},
 	"devDependencies": {
@@ -50,8 +68,11 @@
 		"@nestjs/testing": "^9.0.0",
 		"@types/bcrypt": "^5.0.0",
 		"@types/express": "^4.17.13",
+		"@types/html-minifier": "^4.0.2",
 		"@types/jest": "29.5.2",
+		"@types/jsdom": "^21.1.1",
 		"@types/jsonwebtoken": "^9.0.2",
+		"@types/listr": "^0.14.4",
 		"@types/lodash": "^4.14.195",
 		"@types/luxon": "^3.3.0",
 		"@types/node": "20.3.1",
@@ -73,35 +94,5 @@
 		"ts-node": "^10.0.0",
 		"tsconfig-paths": "4.2.0",
 		"typescript": "^5.0.0"
-	},
-	"jest": {
-		"maxWorkers": 1,
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
-		"rootDir": ".",
-		"testRegex": ".*\\.(spec|e2e-spec)\\.ts$",
-		"transform": {
-			"^.+\\.(t|j)s$": "ts-jest"
-		},
-		"collectCoverageFrom": [
-			"**/*.(t|j)s"
-		],
-		"coverageDirectory": "./coverage",
-		"testEnvironment": "node",
-		"roots": [
-			"<rootDir>/src/",
-			"<rootDir>/libs/"
-		],
-		"moduleNameMapper": {
-			"^@open-press/config(|/.*)$": "<rootDir>/libs/config/src/$1",
-			"^@open-press/example-plugin(|/.*)$": "<rootDir>/libs/example-plugin/src/$1",
-			"^@open-press/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-			"^@open-press/support(|/.*)$": "<rootDir>/libs/support/src/$1",
-			"^@open-press/utility(|/.*)$": "<rootDir>/libs/utility/src/$1",
-			"^@open-press/backend-interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1"
-		}
 	}
 }

@@ -1,5 +1,5 @@
+import { IDatabaseConfig } from "@aetheria/backend-interfaces";
 import { ConfigType, registerAs } from "@nestjs/config";
-import { IDatabaseConfig } from "@open-press/backend-interfaces";
 import { z } from "zod";
 
 /* istanbul ignore file */

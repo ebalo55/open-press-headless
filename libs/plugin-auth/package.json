@@ -1,0 +1,66 @@
+{
+	"name": "@aetheria/plugin-auth",
+	"version": "1.2.0",
+	"aetheria": {
+		"assets": [
+			"README.md"
+		],
+		"reference_commit": "d821afd3ff0cf2979b49e6204c359aef2af8af7d"
+	},
+	"type": "commonjs",
+	"description": "Aetheria authentication plugin",
+	"author": {
+		"name": "Override",
+		"email": "hello@override.sh",
+		"url": "https://override.sh"
+	},
+	"homepage": "https://aetheria-docs.override.sh/packages/plugin-auth",
+	"bugs": {
+		"url": "https://github.com/override-sh/aetheria-headless/issues"
+	},
+	"license": "GPL-2.0",
+	"publishConfig": {
+		"access": "public",
+		"tag": "latest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/override-sh/aetheria-headless.git",
+		"directory": "libs/plugin-auth"
+	},
+	"keywords": [
+		"override",
+		"aetheria",
+		"headless",
+		"es6",
+		"nestjs",
+		"nest",
+		"cms",
+		"plugin",
+		"aetheria-plugin",
+		"authentication",
+		"jwt",
+		"local"
+	],
+	"exports": {
+		".": "./src/index.js",
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@aetheria/backend-interfaces": "^1.0.0",
+		"@aetheria/common": "^1.0.0",
+		"@aetheria/config": "^1.0.0",
+		"@nestjs/common": "^9.0.0",
+		"@nestjs/core": "^9.0.0",
+		"@nestjs/event-emitter": "^2.0.0",
+		"@nestjs/jwt": "^10.1.0",
+		"@nestjs/passport": "^10.0.0",
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.0",
+		"lodash": "^4.17.21",
+		"passport-jwt": "^4.0.1",
+		"passport-local": "^1.0.0",
+		"rxjs": "^7.2.0",
+		"tslib": "^2.5.3"
+	}
+}

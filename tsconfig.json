@@ -1,62 +1,47 @@
 {
-  "compilerOptions": {
-    "module": "CommonJS",
-    "target": "ES6",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "strictNullChecks": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictBindCallApply": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@open-press/config": [
-        "libs/config/src"
-      ],
-      "@open-press/config/*": [
-        "libs/config/src/*"
-      ],
-      "@open-press/example-plugin": [
-        "libs/example-plugin/src"
-      ],
-      "@open-press/example-plugin/*": [
-        "libs/example-plugin/src/*"
-      ],
-      "@open-press/models": [
-        "libs/models/src"
-      ],
-      "@open-press/models/*": [
-        "libs/models/src/*"
-      ],
-      "@open-press/support": [
-        "libs/support/src"
-      ],
-      "@open-press/support/*": [
-        "libs/support/src/*"
-      ],
-      "@open-press/utility": [
-        "libs/utility/src"
-      ],
-      "@open-press/utility/*": [
-        "libs/utility/src/*"
-      ],
-      "@open-press/backend-interfaces": [
-        "libs/interfaces/src"
-      ],
-      "@open-press/backend-interfaces/*": [
-        "libs/interfaces/src/*"
-      ]
-    }
-  }
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "ES6",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"importHelpers": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"incremental": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"strictNullChecks": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"strictBindCallApply": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"lib": [
+			"ESNext"
+		],
+		"paths": {
+			"@aetheria/backend-interfaces": [
+				"libs/interfaces/src"
+			],
+			"@aetheria/config": [
+				"libs/config/src"
+			],
+			"@aetheria/plugin-auth": [
+				"libs/plugin-auth/src"
+			],
+			"@aetheria/plugin-example": [
+				"libs/plugin-example/src"
+			],
+			"@aetheria/plugin-tailwind-classes-builder": [
+				"libs/plugin-tailwind-classes-builder/src"
+			],
+			"@aetheria/common": [
+				"libs/common/src"
+			]
+		}
+	}
 }
