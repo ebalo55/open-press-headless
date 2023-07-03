@@ -1,6 +1,6 @@
 {
     "name": "@aetheria/backend-interfaces",
-    "version": "1.0.2",
+    "version": "1.2.0",
     "type": "commonjs",
     "description": "Aetheria backend interfaces",
     "author": {
@@ -46,6 +46,6 @@
         "assets": [
             "README.md"
         ],
-        "reference_commit": "cd93bb00ac37dbcbf2e9b28c42e039999ddd7e9a"
+        "reference_commit": "d821afd3ff0cf2979b49e6204c359aef2af8af7d"
     }
 }

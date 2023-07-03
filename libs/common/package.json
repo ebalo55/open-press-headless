@@ -1,6 +1,6 @@
 {
 	"name": "@aetheria/common",
-	"version": "1.0.3",
+	"version": "1.2.0",
 	"type": "commonjs",
 	"description": "Support methods and utilities for Aetheria Headless",
 	"author": {
@@ -42,7 +42,7 @@
 		"assets": [
 			"README.md"
 		],
-		"reference_commit": "7b31f86769300f1e2b332dadb1df1c71960fd472"
+		"reference_commit": "d821afd3ff0cf2979b49e6204c359aef2af8af7d"
 	},
 	"dependencies": {
 		"@aetheria/backend-interfaces": "^1.0.2",
