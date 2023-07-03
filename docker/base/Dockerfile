@@ -8,7 +8,7 @@ COPY package.json .
 COPY aetheria.default.json aetheria.json
 COPY dist .
 
-RUN npm install
+RUN npm install --only=production
 
 EXPOSE 3000
 

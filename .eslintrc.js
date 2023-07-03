@@ -14,11 +14,12 @@ module.exports = {
 	},
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
-		"@typescript-eslint/interface-name-prefix": "off",
+		"@typescript-eslint/interface-name-prefix":         "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		//'@typescript-eslint/explicit-module-boundary-types': 'off',
-		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-explicit-any":       "off",
 		"@typescript-eslint/mixed-spaces-and-tabs": "off",
-		"prettier/prettier": "off",
+		"prettier/prettier":                        "off",
+		"node/no-unresolved-import":                "on",
 	},
 };

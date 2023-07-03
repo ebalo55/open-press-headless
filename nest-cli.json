@@ -44,15 +44,6 @@
         "tsConfigPath": "apps/aetheria-backend/tsconfig.app.json"
       }
     },
-    "cli": {
-      "type": "application",
-      "root": "apps/cli",
-      "entryFile": "main",
-      "sourceRoot": "apps/cli/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/cli/tsconfig.app.json"
-      }
-    },
     "plugin-example": {
       "type": "library",
       "root": "libs/plugin-example",
