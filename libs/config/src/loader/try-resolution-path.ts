@@ -1,4 +1,4 @@
-import { AetheriaPlugin } from "@aetheria/backend-interfaces";
+import { AetheriaPlugin, TryResolutionPathConfig } from "@aetheria/backend-interfaces";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cwd } from "node:process";
@@ -19,30 +19,37 @@ import { cwd } from "node:process";
  * If more than one path resolves the behaviour is undefined.
  *
  * @param {AetheriaPlugin} plugin The plugin to resolve
- * @param resolution_path The path to the plugins resolution directory, if not given, the current working directory is
- *     used
- * @param filename The filename to resolve, defaults to "package.json"
- * @returns {Promise<string>} The package.json file content
+ * @param config The configuration for the resolution
+ * @returns {Promise<string>} The raw file content
  */
 export const tryResolutionPaths = async (
 	plugin: AetheriaPlugin,
-	resolution_path?: string,
-	filename = "package.json"
+	config: TryResolutionPathConfig = {
+		filename: "package.json",
+		enable_node_modules: true,
+		enable_parent: true,
+	}
 ): Promise<string> => {
 	const resolution_array = [
-		readFile(resolve(cwd(), plugin.resolve, filename), "utf-8"),
-		readFile(resolve(cwd(), plugin.resolve, "..", filename), "utf-8"),
-		readFile(resolve(cwd(), "node_modules", plugin.id, filename), "utf-8"),
+		readFile(resolve(cwd(), plugin.resolve, config.filename), "utf-8"),
+		config.enable_parent ? readFile(resolve(cwd(), plugin.resolve, "..", config.filename), "utf-8") : null,
+		config.enable_node_modules
+			? readFile(resolve(cwd(), "node_modules", plugin.id, config.filename), "utf-8")
+			: null,
 	];
 
-	if (resolution_path) {
+	if (config?.resolution_path) {
 		resolution_array.unshift(
-			readFile(resolve(resolution_path, plugin.resolve, filename), "utf-8"),
-			readFile(resolve(resolution_path, plugin.resolve, "..", filename), "utf-8"),
-			readFile(resolve(resolution_path, plugin.id, filename), "utf-8"),
-			readFile(resolve(resolution_path, plugin.id, "..", filename), "utf-8")
+			readFile(resolve(config.resolution_path, plugin.resolve, config.filename), "utf-8"),
+			config.enable_parent
+				? readFile(resolve(config.resolution_path, plugin.resolve, "..", config.filename), "utf-8")
+				: null,
+			readFile(resolve(config.resolution_path, plugin.id, config.filename), "utf-8"),
+			config.enable_parent
+				? readFile(resolve(config.resolution_path, plugin.id, "..", config.filename), "utf-8")
+				: null
 		);
 	}
 
-	return Promise.any(resolution_array);
+	return Promise.any(resolution_array.filter((value) => value !== null) as Promise<string>[]);
 };

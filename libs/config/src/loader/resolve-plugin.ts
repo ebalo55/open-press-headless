@@ -7,11 +7,13 @@ import { tryResolutionPaths } from "./try-resolution-path";
  * @param resolution_path The path to the plugins resolution directory, if not given, the current working directory is
  *     used
  */
-export const resolvePlugin = async (
-	plugin: AetheriaPlugin,
-	resolution_path?: string,
-): Promise<AetheriaResolvedPlugin> => {
-	const package_json = JSON.parse(await tryResolutionPaths(plugin, resolution_path));
+export const resolvePlugin = async (plugin: AetheriaPlugin, resolution_path?: string): Promise<AetheriaResolvedPlugin> => {
+	const package_json = JSON.parse(
+		await tryResolutionPaths(plugin, {
+			filename: "package.json",
+			resolution_path,
+		})
+	);
 
 	// load assets from package.json if defined
 	let assets: string[] | undefined = undefined;
